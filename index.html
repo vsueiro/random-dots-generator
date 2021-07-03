@@ -29,10 +29,12 @@
         let width     = window.innerWidth;
         let height    = window.innerHeight;
 
-        let amount    = 5;
-        let radius    = 50;
+        let amount    = 1000;
+        let radius    = 8;
 
-        let points = [];
+        let current   = 0;
+        let points    = [];
+        let tries     = [];
 
         // Stretch svg to fit viewport dimensions
         svg.setAttribute( 'height', height );
@@ -53,14 +55,25 @@
         // Function to check if a dot overlaps with other dots
         let overlaps = ( x, y ) => {
 
+          // If number of tries exceeds an arbiratry big number
+          if ( tries[ current ] > 1000 )
+            return false;
+
           for ( let point of points ) {
 
             // Calculates distance between current point and all other points
             let hypot = distance( x, y, point.x, point.y );
 
             // Checks if they overlap
-            if ( hypot < radius * 2 )
+            if ( hypot < radius * 2 ) {
+
+              // Increments number of tries for this specific dot
+              tries[ current ] = tries[ current ] + 1;
+              console.log( 'Dot #' + current + ' overlaps. Try #' + tries[ current ] );
+
               return true;
+
+            }
 
           }
 
@@ -92,8 +105,14 @@
 
         for ( let i = 0; i < amount; i++ ) {
 
+          current = i;
+          console.log( 'Creating dot #' + current );
+
           // Create new circle
           let circle = document.createElementNS( namespace, 'circle' );
+
+          // Defines initial number of tries for random positions (without overlap)
+          tries[ current ] = 0;
 
           // Get random coordinates that do not overlap with other dots
           let position = coordinates();
