@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Random Dots Generator</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
+  <body>
+
+    <svg></svg>
+
+    <!-- <svg id="cont" height="1000" width="1000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <circle id="cir1" cx="300" cy="300" r="40" stroke="yellow" stroke-width="" fill="none" />
+    </svg> -->
+
+    <script>
+
+      let svg       = document.querySelector( 'svg' );
+      let namespace = 'http://www.w3.org/2000/svg';
+
+      let create = () => {
+
+        let width     = window.innerWidth;
+        let height    = window.innerHeight;
+
+        let amount    = 10000;
+        let radius    = 2;
+
+        let current   = 0;
+        let points    = [];
+        let tries     = [];
+
+        // Stretch svg to fit viewport dimensions
+        svg.setAttribute( 'height', height );
+        svg.setAttribute( 'width', width );
+
+        // Function to generate random float between two numbers
+        let random = ( min, max ) => {
+          return Math.random() * ( max - min ) + min;
+        }
+
+        // Function to calculate distance between two points
+        let distance = ( x1, y1, x2, y2 ) => {
+          let a = x1 - x2;
+          let b = y1 - y2;
+          return Math.sqrt( a*a + b*b );
+        }
+
+        // Function to check if a dot overlaps with other dots
+        let overlaps = ( x, y ) => {
+
+          // If number of tries exceeds an arbiratry big number
+          if ( tries[ current ] > 1000 )
+            return false;
+
+          for ( let point of points ) {
+
+            // Calculates distance between current point and all other points
+            let hypot = distance( x, y, point.x, point.y );
+
+            // Checks if they overlap
+            if ( hypot < radius * 2 ) {
+
+              // Increments number of tries for this specific dot
+              tries[ current ] = tries[ current ] + 1;
+              console.log( 'Dot #' + current + ' overlaps. Try #' + tries[ current ] );
+
+              return true;
+
+            }
+
+          }
+
+        }
+
+        let coordinates = () => {
+
+          // Calculates random coordinates
+          let x = random( 0, width );
+          let y = random( 0, height );
+
+          // Checks if there is an overlap with other dots, then randomize again
+          if ( overlaps( x, y ) )
+            return coordinates()
+
+          // If there is no overlap, puts them into an object
+          let point = {
+            x : x,
+            y : y
+          }
+
+          // Stores it in the array of coordinates
+          points.push( point )
+
+          // Returns it
+          return point
+
+        }
+
+        for ( let i = 0; i < amount; i++ ) {
+
+          current = i;
+          console.log( 'Creating dot #' + current );
+
+          // Create new circle
+          let circle = document.createElementNS( namespace, 'circle' );
+
+          // Defines initial number of tries for random positions (without overlap)
+          tries[ current ] = 0;
+
+          // Get random coordinates that do not overlap with other dots
+          let position = coordinates();
+
+          // Define its positions
+          circle.setAttributeNS( null, 'cx', position.x );
+          circle.setAttributeNS( null, 'cy', position.y );
+
+          // Assings radius
+          circle.setAttributeNS( null, 'r', radius );
+
+          // Styles circle
+          circle.setAttributeNS( null, 'style', 'fill: black; stroke: none; stroke-width: 0;' );
+
+          // Add circle to the svg
+          svg.appendChild(circle);
+
+        }
+
+      }
+
+      let clears = ( element ) => {
+        while ( element.firstChild )
+          element.removeChild( element.firstChild );
+      }
+
+      window.addEventListener( 'resize', () => {
+
+        // Deletes all elements
+        clears( svg );
+
+        // Creates everything again
+        create();
+
+      } )
+
+      create();
+
+    </script>
+  </body>
+</html>
