@@ -8,6 +8,77 @@
   </head>
   <body>
 
+    <div class="app">
+
+      <form>
+
+      	<fieldset>
+      		<legend>Format</legend>
+      		<label>
+            <input value="Vector" name="format" type="radio" checked>
+            <span>Vector</span>
+          </label>
+          <label>
+            <input value="Bitmap" name="format" type="radio">
+            <span>Bitmap</span>
+          </label>
+       	</fieldset>
+
+      	<fieldset>
+      		<legend>Shape</legend>
+          <label>
+            <input value="Rectangle" name="shape" type="radio" checked>
+            <span>Rectangle</span>
+          </label>
+          <label>
+            <input value="Circle" name="shape" type="radio">
+            <span>Circle</span>
+          </label>
+          <label>
+            <input name="background" type="color" value="#ffffff">
+            <span>Background color</span>
+          </label>
+
+          <fieldset>
+            <legend>Size</legend>
+            <label>
+              <span>Width</span>
+              <input name="width" type="number" min="240" max="1920" step="1" value="1280">
+            </label>
+            <label>
+              <span>Height</span>
+              <input name="height" type="number" min="240" max="1920" step="1" value="720">
+            </label>
+          </fieldset>
+
+       	</fieldset>
+
+        <fieldset>
+          <legend>Dots</legend>
+          <label>
+            <span>Amount</span>
+            <input name="amount" type="number" min="1" max="1000000" step="1" value="10000">
+          </label>
+          <label>
+            <span>Radius</span>
+            <input name="radius" type="number" min="1" max="240" step="1" value="1">
+          </label>
+          <label>
+            <input name="color" type="color" value="#000000">
+            <span>Dot color</span>
+          </label>
+          <label>
+            <input name="overlap" type="checkbox" checked>
+            <span>Prevent overlap</span>
+          </label>
+        </fieldset>
+
+        <button type="submit">Generate</button>
+
+      </form>
+
+    </div>
+
     <script src="js/script.js"></script>
   </body>
 </html>
