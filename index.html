@@ -10,6 +10,14 @@
       padding: 0;
       overflow: hidden;
     }
+
+    svg {
+      background: Indigo;
+    }
+
+    circle {
+      fill: GhostWhite;
+    }
   </style>
   <body>
 
@@ -29,8 +37,10 @@
         let width     = window.innerWidth;
         let height    = window.innerHeight;
 
-        let amount    = 10000;
-        let radius    = 2;
+        let params    = new URLSearchParams( window.location.search );
+
+        let amount    = params.get('amount') ? params.get('amount') : 1000;
+        let radius    = params.get('radius') ? params.get('radius') : .5;
 
         let current   = 0;
         let points    = [];
@@ -125,7 +135,9 @@
           circle.setAttributeNS( null, 'r', radius );
 
           // Styles circle
-          circle.setAttributeNS( null, 'style', 'fill: black; stroke: none; stroke-width: 0;' );
+          circle.setAttributeNS( null, 'style', 'fill: GhostWhite; stroke: none; stroke-width: 0;' );
+
+          circle.style.animationDelay = ( Math.random() * 3 ) + 's'
 
           // Add circle to the svg
           svg.appendChild(circle);
