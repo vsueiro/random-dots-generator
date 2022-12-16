@@ -34,13 +34,16 @@
 
       let create = () => {
 
-        let width     = window.innerWidth;
-        let height    = window.innerHeight;
 
         let params    = new URLSearchParams( window.location.search );
 
-        let amount    = params.get('amount') ? params.get('amount') : 1000;
-        let radius    = params.get('radius') ? params.get('radius') : .5;
+        let width     = params.get('w') ? Number( params.get('w') ) : window.innerWidth;
+        let height    = params.get('h') ? Number( params.get('h') ) : window.innerHeight;
+
+        let amount    = params.get('amount') ? Number( params.get('amount') ) : 1000;
+        let radius    = params.get('radius') ? Number( params.get('radius') ) : 2;
+
+        let padding   = params.get('padding') ? Number( params.get('padding') ) : 0;
 
         let current   = 0;
         let points    = [];
@@ -92,8 +95,8 @@
         let coordinates = () => {
 
           // Calculates random coordinates
-          let x = random( 0, width );
-          let y = random( 0, height );
+          let x = random( 0 + padding, width - padding );
+          let y = random( 0 + padding, height - padding );
 
           // Checks if there is an overlap with other dots, then randomize again
           if ( overlaps( x, y ) )
@@ -135,9 +138,7 @@
           circle.setAttributeNS( null, 'r', radius );
 
           // Styles circle
-          circle.setAttributeNS( null, 'style', 'fill: GhostWhite; stroke: none; stroke-width: 0;' );
-
-          circle.style.animationDelay = ( Math.random() * 3 ) + 's'
+          circle.setAttributeNS( null, 'style', 'fill: black; stroke: none; stroke-width: 0;' );
 
           // Add circle to the svg
           svg.appendChild(circle);
