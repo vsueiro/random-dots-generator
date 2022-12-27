@@ -12,29 +12,52 @@
     }
 
     svg {
-      background: Indigo;
+      background: #eee;
+      display: block;
     }
 
-    circle {
-      fill: GhostWhite;
+    button {
+      position: fixed;
+      top: 20px;
+      right: 20px
     }
+
   </style>
   <body>
 
-    <svg></svg>
+    <div id="container">
+      <svg></svg>
+    </div>
 
+    <button>Download SVG</button>
+    
     <!-- <svg id="cont" height="1000" width="1000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <circle id="cir1" cx="300" cy="300" r="40" stroke="yellow" stroke-width="" fill="none" />
     </svg> -->
 
     <script>
 
+      let button    = document.querySelector('button');
       let svg       = document.querySelector( 'svg' );
       let namespace = 'http://www.w3.org/2000/svg';
 
+      let download = () => {
+        
+        const svg  = document.querySelector('#container').innerHTML;
+        const blob = new Blob([svg.toString()]);
+        const a    = document.createElement("a");
+
+        a.download = "dots.svg";
+        a.href = window.URL.createObjectURL(blob);
+        a.click();
+        a.remove();
+      
+      }
+
+      button.onclick = download
+
       let create = () => {
-
-
+        
         let params    = new URLSearchParams( window.location.search );
 
         let width     = params.get('w') ? Number( params.get('w') ) : window.innerWidth;
