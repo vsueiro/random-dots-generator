@@ -1,9 +1,16 @@
 class Dots {
   constructor(element, options) {
+    this.element = element;
+
+    this.setOptions(options);
+    this.setRenderer(element);
+
+    this.draw();
+  }
+
+  setOptions(options) {
     // Renderer
     this.renderer = options.renderer;
-    this.svg = this.renderer === "svg" ? element : undefined;
-    this.canvas = this.renderer === "canvas" ? element : undefined;
 
     // Dots
     this.amount = options.amount;
@@ -18,8 +25,56 @@ class Dots {
     this.padding = options.padding;
     this.background = options.background;
     this.shape = options.shape;
+  }
 
-    console.log(this);
+  setRenderer(element = this.element) {
+    // Clear element
+    element.replaceChildren();
+
+    this.svg = undefined;
+    this.canvas = undefined;
+
+    if (this.renderer === "svg") {
+      const markup = `<svg
+        width="${this.width}"
+        height="${this.height}"
+      ></svg>`;
+
+      element.innerHTML = markup;
+
+      this.svg = element.querySelector("svg");
+    }
+
+    if (this.renderer === "canvas") {
+      this.canvas = document.createElement("canvas");
+      element.innerHTML = this.svg;
+      this.canvas = element.querySelector("canvas");
+    }
+  }
+
+  append(markup) {
+    this.svg.insertAdjacentHTML("beforeend", markup);
+  }
+
+  draw() {
+    if (this.renderer === "svg") {
+      let dot = `<circle
+        cx="100"
+        cy="100"
+        r="${this.radius}"
+        fill="${this.foreground}"
+      ></circle>`;
+
+      this.append(dot);
+    }
+  }
+
+  redraw(options) {
+    if (options) {
+      this.setOptions(options);
+    }
+
+    this.draw();
   }
 
   /*

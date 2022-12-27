@@ -1,5 +1,5 @@
 // Select <form> from HTML
-const form = document.querySelector("form");
+let form = document.querySelector("form");
 
 function getOptions(form) {
   // Extract form data
@@ -27,11 +27,12 @@ function getOptions(form) {
   return options;
 }
 
-const svg = document.querySelector(".Dots-svg");
+const element = document.querySelector(".Dots");
 const options = getOptions(form);
+const dots = new Dots(element, options);
 
-const dots = new Dots(svg, options);
-
-form.addEventListener("change", () => {
-  // TODO: update dots
+form.addEventListener("input", function () {
+  // Update dots
+  const options = getOptions(form);
+  dots.redraw(options);
 });
