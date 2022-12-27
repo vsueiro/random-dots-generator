@@ -1,0 +1,50 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background: Lavender;
+}
+
+h1 {
+  padding: 8px;
+}
+
+button {
+  margin: 8px;
+  user-select: none;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  margin: 8px;
+}
+
+label {
+  white-space: nowrap;
+  margin: 4px;
+  user-select: none;
+}
+
+label span {
+  display: inline-flex;
+  min-width: 80px;
+}
+
+label input:disabled + span {
+  opacity: 0.5;
+}
+
+#app {
+  min-height: 100vh;
+}

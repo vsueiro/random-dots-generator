@@ -1,192 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Random Dots Generator</title>
   </head>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-
-    svg {
-      background: #eee;
-      display: block;
-    }
-
-    button {
-      position: fixed;
-      top: 20px;
-      right: 20px
-    }
-
-  </style>
+  <link rel="stylesheet" href="Dots.css" />
+  <link rel="stylesheet" href="app.css" />
   <body>
+    <div id="app">
+      <h1>Random Dots Generator</h1>
 
-    <div id="container">
-      <svg></svg>
+      <div id="controls">
+        <form>
+          <fieldset>
+            <legend>Dots</legend>
+            <label>
+              <span>Amount</span>
+              <input type="number" name="amount" value="1000" />
+            </label>
+            <label>
+              <span>Radius</span>
+              <input type="number" name="radius" value="2" />
+            </label>
+            <label>
+              <span>Margin</span>
+              <input type="number" name="radius" value="2" />
+            </label>
+            <label>
+              <span>Color</span>
+              <input type="color" name="foreground" value="#000000" />
+            </label>
+            <label>
+              <input type="checkbox" name="preventOverlap" checked />
+              <span>Prevent overlap</span>
+            </label>
+          </fieldset>
+          <fieldset>
+            <legend>Canvas</legend>
+            <label>
+              <span>Width</span>
+              <input type="number" name="width" value="640" />
+            </label>
+            <label>
+              <span>Height</span>
+              <input type="number" name="height" value="360" />
+            </label>
+            <label>
+              <span>Padding</span>
+              <input type="number" name="padding" value="2" />
+            </label>
+            <label>
+              <span>Color</span>
+              <input type="color" name="background" value="#ffffff" />
+            </label>
+            <fieldset>
+              <legend>Shape</legend>
+              <label>
+                <input type="radio" name="shape" value="rectangle" checked />
+                <span>Rectangle</span>
+              </label>
+              <label>
+                <input type="radio" name="shape" value="circle" disabled />
+                <span>Circle</span>
+              </label>
+            </fieldset>
+          </fieldset>
+          <fieldset>
+            <legend>Renderer</legend>
+            <label>
+              <input type="radio" name="renderer" value="svg" checked />
+              <span>SVG</span>
+            </label>
+            <label>
+              <input type="radio" name="renderer" value="canvas" disabled />
+              <span>PNG</span>
+            </label>
+          </fieldset>
+        </form>
+      </div>
+
+      <div id="canvas">
+        <div class="Dots-wrapper">
+          <svg class="Dots-svg"></svg>
+        </div>
+        <button>Download SVG</button>
+      </div>
     </div>
 
-    <button>Download SVG</button>
-    
-    <!-- <svg id="cont" height="1000" width="1000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <circle id="cir1" cx="300" cy="300" r="40" stroke="yellow" stroke-width="" fill="none" />
-    </svg> -->
-
+    <script src="Dots.js"></script>
+    <script src="app.js"></script>
     <script>
+      /*
+      const form = document.querySelector("form");
+      const button = document.querySelector("button");
+      const wrapper = document.querySelector("#svg-wrapper");
+      const svg = document.querySelector("svg");
+      const namespace = "http://www.w3.org/2000/svg";
 
-      let button    = document.querySelector('button');
-      let svg       = document.querySelector( 'svg' );
-      let namespace = 'http://www.w3.org/2000/svg';
+      const dots = new Dots(svg, options);
 
-      let download = () => {
-        
-        const svg  = document.querySelector('#container').innerHTML;
-        const blob = new Blob([svg.toString()]);
-        const a    = document.createElement("a");
+      button.onclick = dots.download;
 
-        a.download = "dots.svg";
-        a.href = window.URL.createObjectURL(blob);
-        a.click();
-        a.remove();
-      
-      }
+      // Make SVG container resizable
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (let entry of entries) {
+          console.log(entry.contentRect.width, entry.contentRect.height);
 
-      button.onclick = download
-
-      let create = () => {
-        
-        let params    = new URLSearchParams( window.location.search );
-
-        let width     = params.get('w') ? Number( params.get('w') ) : window.innerWidth;
-        let height    = params.get('h') ? Number( params.get('h') ) : window.innerHeight;
-
-        let amount    = params.get('amount') ? Number( params.get('amount') ) : 1000;
-        let radius    = params.get('radius') ? Number( params.get('radius') ) : 2;
-
-        let padding   = params.get('padding') ? Number( params.get('padding') ) : 0;
-
-        let current   = 0;
-        let points    = [];
-        let tries     = [];
-
-        // Stretch svg to fit viewport dimensions
-        svg.setAttribute( 'height', height );
-        svg.setAttribute( 'width', width );
-
-        // Function to generate random float between two numbers
-        let random = ( min, max ) => {
-          return Math.random() * ( max - min ) + min;
+          // Recreate dots with new dimensions
+          update();
         }
+      });
 
-        // Function to calculate distance between two points
-        let distance = ( x1, y1, x2, y2 ) => {
-          let a = x1 - x2;
-          let b = y1 - y2;
-          return Math.sqrt( a*a + b*b );
-        }
+      // Listen for user resize of SVG wrapper
+      resizeObserver.observe(wrapper);
 
-        // Function to check if a dot overlaps with other dots
-        let overlaps = ( x, y ) => {
-
-          // If number of tries exceeds an arbiratry big number
-          if ( tries[ current ] > 1000 )
-            return false;
-
-          for ( let point of points ) {
-
-            // Calculates distance between current point and all other points
-            let hypot = distance( x, y, point.x, point.y );
-
-            // Checks if they overlap
-            if ( hypot < radius * 2 ) {
-
-              // Increments number of tries for this specific dot
-              tries[ current ] = tries[ current ] + 1;
-              console.log( 'Dot #' + current + ' overlaps. Try #' + tries[ current ] );
-
-              return true;
-
-            }
-
-          }
-
-        }
-
-        let coordinates = () => {
-
-          // Calculates random coordinates
-          let x = random( 0 + padding, width - padding );
-          let y = random( 0 + padding, height - padding );
-
-          // Checks if there is an overlap with other dots, then randomize again
-          if ( overlaps( x, y ) )
-            return coordinates()
-
-          // If there is no overlap, puts them into an object
-          let point = {
-            x : x,
-            y : y
-          }
-
-          // Stores it in the array of coordinates
-          points.push( point )
-
-          // Returns it
-          return point
-
-        }
-
-        for ( let i = 0; i < amount; i++ ) {
-
-          current = i;
-          console.log( 'Creating dot #' + current );
-
-          // Create new circle
-          let circle = document.createElementNS( namespace, 'circle' );
-
-          // Defines initial number of tries for random positions (without overlap)
-          tries[ current ] = 0;
-
-          // Get random coordinates that do not overlap with other dots
-          let position = coordinates();
-
-          // Define its positions
-          circle.setAttributeNS( null, 'cx', position.x );
-          circle.setAttributeNS( null, 'cy', position.y );
-
-          // Assings radius
-          circle.setAttributeNS( null, 'r', radius );
-
-          // Styles circle
-          circle.setAttributeNS( null, 'style', 'fill: black; stroke: none; stroke-width: 0;' );
-
-          // Add circle to the svg
-          svg.appendChild(circle);
-
-        }
-
-      }
-
-      let clears = ( element ) => {
-        while ( element.firstChild )
-          element.removeChild( element.firstChild );
-      }
-
-      window.addEventListener( 'resize', () => {
-
-        // Deletes all elements
-        clears( svg );
-
-        // Creates everything again
-        create();
-
-      } )
+      // Recreate
+      wrapper.addEventListener("resize", update);
+      window.addEventListener("resize", update);
 
       create();
-
+      */
     </script>
   </body>
 </html>
