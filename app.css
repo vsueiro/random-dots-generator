@@ -53,3 +53,20 @@ input:invalid,
 input:out-of-range {
   border: 2px solid Tomato;
 }
+
+.count.invalid {
+  color: Tomato;
+}
+
+.error {
+  background: Tomato;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 4px;
+  color: White;
+  width: fit-content;
+}
+
+.error:empty {
+  display: none;
+}

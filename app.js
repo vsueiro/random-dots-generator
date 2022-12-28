@@ -38,6 +38,20 @@ const element = document.querySelector(".Dots");
 const options = getOptions(form);
 const dots = new Dots(element, options);
 
+// Update count
+function showCount() {
+  const error = document.querySelector(".error");
+
+  if (dots.count < options.amount) {
+    error.textContent = `
+      Too many dots to prevent overlap.
+      Only ${dots.count} dots created.
+    `;
+  } else {
+    error.textContent = ``;
+  }
+}
+
 // Update drawing when form changes
 form.addEventListener("input", function () {
   // Allow wrapper dimensions to update when form values change
@@ -46,6 +60,8 @@ form.addEventListener("input", function () {
   // Update dots
   const options = getOptions(form);
   dots.redraw(options);
+
+  showCount();
 });
 
 // Update form inputs when wrapper is resized
@@ -66,8 +82,14 @@ const resizeObserver = new ResizeObserver((entries) => {
 
     // Recreate dots with new dimensions
     dots.redraw(options);
+
+    showCount();
   }
 });
 
 // Listen for user resize of wrapper
 resizeObserver.observe(element);
+
+// Enable download button
+const button = document.querySelector(".download");
+button.addEventListener("click", dots.download);

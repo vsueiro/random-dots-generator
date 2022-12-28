@@ -73,6 +73,9 @@ class Dots {
 
     // Empty list of dots
     this.list = [];
+
+    // Maximum tries
+    this.triesLimit = 10000;
   }
 
   setRenderer(element = this.element) {
@@ -122,11 +125,24 @@ class Dots {
     }
   }
 
+  // Function to calculate distance between two points
+  distance(x1, y1, x2, y2) {
+    let a = x1 - x2;
+    let b = y1 - y2;
+    return Math.sqrt(a * a + b * b);
+  }
+
   overlaps(dot) {
     // Loop through all existing dots
-    for (let oldDot of this.list) {
-      // TODO: check dot overlaps with oldDot
-      if (false) {
+    for (let existing of this.list) {
+      // Calculate distance (hypotenuse) between dot centers
+      let distance = this.distance(existing.x, existing.y, dot.x, dot.y);
+
+      // Calculate minimum distance between the two circles
+      let minDistance = existing.radius + dot.radius + this.margin;
+
+      // If new dot overlaps with existing dot
+      if (distance < minDistance) {
         // Stop checking and return true
         return true;
       }
@@ -138,6 +154,9 @@ class Dots {
 
   drawForeground() {
     if (this.renderer === "svg") {
+      // Define stop flag to prevent browser from chashing
+      let stop = false;
+
       // Create dots until they reach the defined amount
       for (let i = 0; i < this.amount; i++) {
         // Create new random dot
@@ -145,9 +164,24 @@ class Dots {
 
         // If overlaps are not allowed
         if (this.preventOverlap) {
+          // Count number of tries
+          let tries = 0;
+
           // Keep generating random dots until one of them doesn’t overlap
           while (this.overlaps(dot)) {
             dot = new Dot(this);
+            tries++;
+
+            if (tries < 0) {
+              console.log(tries);
+            }
+
+            if (tries > this.triesLimit) {
+              this.warning("Too many dots to prevent overlap :/");
+              stop = true;
+              // this.reset();
+              break;
+            }
           }
         }
 
@@ -156,6 +190,10 @@ class Dots {
 
         // Add the dot to the SVG
         this.append(dot.markup);
+
+        if (stop) {
+          break;
+        }
       }
     }
   }
@@ -163,12 +201,19 @@ class Dots {
   draw() {
     this.drawBackground();
     this.drawForeground();
+
+    console.log(`Created ${this.count} dots.`);
+  }
+
+  get count() {
+    if (this.renderer === "svg") {
+      return this.svg.querySelectorAll("circle").length;
+    }
   }
 
   redraw(options = this.options) {
     this.setOptions(options);
     this.setRenderer();
-
     this.draw();
   }
 
@@ -183,6 +228,16 @@ class Dots {
       a.click();
       a.remove();
     }
+  }
+
+  warning(message) {
+    // TEMP: Show native alert
+    console.warn(message);
+  }
+
+  reset() {
+    // TEMP: Refresh whole page
+    location.reload();
   }
 
   /*
