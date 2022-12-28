@@ -9,6 +9,7 @@
 body {
   font-family: "JetBrains Mono", monospace;
   background: Lavender;
+  color: Indigo;
 }
 
 h1 {
@@ -30,11 +31,18 @@ fieldset {
   flex-direction: column;
   padding: 8px;
   margin: 8px;
+  border: 1px solid RebeccaPurple;
+  border-radius: 4px;
+}
+
+legend {
+  padding: 0 8px;
+  font-weight: bold;
 }
 
 label {
   white-space: nowrap;
-  margin: 4px;
+  margin: 4px 8px;
   user-select: none;
 }
 
@@ -47,8 +55,20 @@ label input:disabled + span {
   opacity: 0.5;
 }
 
-#app {
-  min-height: 100vh;
+input[type="number"] {
+  border: 1px solid RebeccaPurple;
+  border-radius: 4px;
+  background: GhostWhite;
+  padding: 4px;
+  height: 28px;
+  font-family: "JetBrains Mono", monospace;
+}
+
+input[type="color"] {
+  margin: 0;
+  padding: 0;
+  border: 1px solid RebeccaPurple;
+  border-radius: 4px;
 }
 
 input:invalid,
