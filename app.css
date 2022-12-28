@@ -48,3 +48,8 @@ label input:disabled + span {
 #app {
   min-height: 100vh;
 }
+
+input:invalid,
+input:out-of-range {
+  border: 2px solid Tomato;
+}

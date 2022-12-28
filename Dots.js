@@ -1,3 +1,48 @@
+class Dot {
+  constructor(instance) {
+    // Gets access to all properties of the Dots class
+    this.instance = instance;
+
+    // Calculates random coordinates
+    this.x = this.random(this.min.x, this.max.x);
+    this.y = this.random(this.min.y, this.max.y);
+
+    this.radius = this.instance.radius;
+    this.foreground = this.instance.foreground;
+  }
+
+  // Function to generate random float between two numbers
+  random(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  // Calculate lower bounds
+  get min() {
+    return {
+      x: 0 + this.instance.padding,
+      y: 0 + this.instance.padding,
+    };
+  }
+
+  // Calculate upper bounds
+  get max() {
+    return {
+      x: this.instance.width - this.instance.padding,
+      y: this.instance.height - this.instance.padding,
+    };
+  }
+
+  // Create a single circle
+  get markup() {
+    return `<circle
+      cx="${this.x}"
+      cy="${this.y}"
+      r="${this.radius}"
+      fill="${this.foreground}"
+    ></circle>`;
+  }
+}
+
 class Dots {
   constructor(element, options) {
     this.element = element;
@@ -25,6 +70,9 @@ class Dots {
     this.padding = options.padding;
     this.background = options.background;
     this.shape = options.shape;
+
+    // Empty list of dots
+    this.list = [];
   }
 
   setRenderer(element = this.element) {
@@ -56,25 +104,85 @@ class Dots {
     this.svg.insertAdjacentHTML("beforeend", markup);
   }
 
-  draw() {
+  drawBackground() {
     if (this.renderer === "svg") {
-      let dot = `<circle
-        cx="100"
-        cy="100"
-        r="${this.radius}"
-        fill="${this.foreground}"
-      ></circle>`;
+      // Create a rectangle as the background
+      let markup = `
+        <rect
+          x="0"
+          y="0"
+          width="${this.width}"
+          height="${this.height}"
+          fill="${this.background}"
+        ></rect>
+      `;
 
-      this.append(dot);
+      // Add rectangle to SVG
+      this.append(markup);
     }
   }
 
-  redraw(options) {
-    if (options) {
-      this.setOptions(options);
+  overlaps(dot) {
+    // Loop through all existing dots
+    for (let oldDot of this.list) {
+      // TODO: check dot overlaps with oldDot
+      if (false) {
+        // Stop checking and return true
+        return true;
+      }
     }
 
+    // Return false if there were no collisions
+    return false;
+  }
+
+  drawForeground() {
+    if (this.renderer === "svg") {
+      // Create dots until they reach the defined amount
+      for (let i = 0; i < this.amount; i++) {
+        // Create new random dot
+        let dot = new Dot(this);
+
+        // If overlaps are not allowed
+        if (this.preventOverlap) {
+          // Keep generating random dots until one of them doesn’t overlap
+          while (this.overlaps(dot)) {
+            dot = new Dot(this);
+          }
+        }
+
+        // Add new dot to list of existing dots
+        this.list.push(dot);
+
+        // Add the dot to the SVG
+        this.append(dot.markup);
+      }
+    }
+  }
+
+  draw() {
+    this.drawBackground();
+    this.drawForeground();
+  }
+
+  redraw(options = this.options) {
+    this.setOptions(options);
+    this.setRenderer();
+
     this.draw();
+  }
+
+  download() {
+    if (this.renderer === "svg") {
+      const svg = this.element.innerHTML;
+      const blob = new Blob([svg.toString()]);
+      const a = document.createElement("a");
+
+      a.download = "dots.svg";
+      a.href = window.URL.createObjectURL(blob);
+      a.click();
+      a.remove();
+    }
   }
 
   /*
@@ -214,18 +322,6 @@ class Dots {
   // Function to generate random float between two numbers
   random(min, max) {
     return Math.random() * (max - min) + min;
-  }
-
-  // Download svg content
-  download() {
-    const svg = wrapper.innerHTML;
-    const blob = new Blob([svg.toString()]);
-    const a = document.createElement("a");
-
-    a.download = "dots.svg";
-    a.href = window.URL.createObjectURL(blob);
-    a.click();
-    a.remove();
   }
   */
 }
