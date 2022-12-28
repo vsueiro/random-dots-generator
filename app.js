@@ -112,7 +112,13 @@ const resizeObserver = new ResizeObserver((entries) => {
 resizeObserver.observe(element);
 
 // Enable download button
-const button = document.querySelector(".download");
-button.addEventListener("click", () => {
+const downloadButton = document.querySelector(".download");
+downloadButton.addEventListener("click", () => {
   dots.download();
+});
+
+// Enable redraw button
+const variantButton = document.querySelector(".variant");
+variantButton.addEventListener("click", () => {
+  redraw();
 });
