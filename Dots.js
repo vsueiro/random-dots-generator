@@ -1,3 +1,5 @@
+// TODO: When changing only color, do not redraw whole chart, only update existing dots and background
+
 class Dot {
   constructor(instance) {
     // Gets access to all properties of the Dots class
@@ -89,6 +91,7 @@ class Dots {
       const markup = `<svg
         width="${this.width}"
         height="${this.height}"
+        xmlns="http://www.w3.org/2000/svg"
       ></svg>`;
 
       element.innerHTML = markup;
@@ -185,15 +188,16 @@ class Dots {
           }
         }
 
+        // Prevent overlapping dot from being added
+        if (stop) {
+          break;
+        }
+
         // Add new dot to list of existing dots
         this.list.push(dot);
 
         // Add the dot to the SVG
         this.append(dot.markup);
-
-        if (stop) {
-          break;
-        }
       }
     }
   }
@@ -219,11 +223,13 @@ class Dots {
 
   download() {
     if (this.renderer === "svg") {
+      console.log("downloading");
+
       const svg = this.element.innerHTML;
       const blob = new Blob([svg.toString()]);
       const a = document.createElement("a");
 
-      a.download = "dots.svg";
+      a.download = `${this.amount}-dots-${this.width}x${this.height}.svg`;
       a.href = window.URL.createObjectURL(blob);
       a.click();
       a.remove();

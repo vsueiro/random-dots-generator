@@ -42,7 +42,7 @@ const dots = new Dots(element, options);
 function showCount() {
   const error = document.querySelector(".error");
 
-  if (dots.count < options.amount) {
+  if (dots.count < dots.amount) {
     error.textContent = `
       Too many dots to prevent overlap.
       Only ${dots.count} dots created.
@@ -53,7 +53,7 @@ function showCount() {
 }
 
 // Update drawing when form changes
-form.addEventListener("input", function () {
+form.addEventListener("input", () => {
   // Allow wrapper dimensions to update when form values change
   element.style = "";
 
@@ -92,4 +92,6 @@ resizeObserver.observe(element);
 
 // Enable download button
 const button = document.querySelector(".download");
-button.addEventListener("click", dots.download);
+button.addEventListener("click", () => {
+  dots.download();
+});
