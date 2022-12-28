@@ -11,3 +11,8 @@
 .Dots canvas {
   display: flex;
 }
+
+.Dots[data-shape="circle"] {
+  resize: vertical;
+  aspect-ratio: 1;
+}

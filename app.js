@@ -52,16 +52,36 @@ function showCount() {
   }
 }
 
+function redraw() {
+  // Get current form values
+  const options = getOptions(form);
+
+  // Recreate dots with new dimensions
+  dots.redraw(options);
+
+  // Display number of created dots
+  showCount();
+
+  // Add all options as data-attributes to the <form> element
+  for (let key in options) {
+    element.dataset[key] = options[key];
+  }
+}
+
 // Update drawing when form changes
 form.addEventListener("input", () => {
   // Allow wrapper dimensions to update when form values change
   element.style = "";
 
-  // Update dots
-  const options = getOptions(form);
-  dots.redraw(options);
+  // Disable width input if shape is circle
+  if (getOptions(form).shape === "circle") {
+    form.querySelector('[name="width"]').readOnly = true;
+  } else {
+    form.querySelector('[name="width"]').readOnly = false;
+  }
 
-  showCount();
+  // Update dots
+  redraw();
 });
 
 // Update form inputs when wrapper is resized
@@ -71,19 +91,20 @@ const resizeObserver = new ResizeObserver((entries) => {
     let width = entry.contentRect.width;
     let height = entry.contentRect.height;
 
-    console.log(width, height);
+    // Get current form values
+    const options = getOptions(form);
+
+    console.log(options);
+
+    if (options.shape === "circle") {
+      width = height;
+    }
 
     // Update form fields with new dimensios
     form.querySelector('[name="width"]').value = width;
     form.querySelector('[name="height"]').value = height;
 
-    // Get current form values
-    const options = getOptions(form);
-
-    // Recreate dots with new dimensions
-    dots.redraw(options);
-
-    showCount();
+    redraw();
   }
 });
 

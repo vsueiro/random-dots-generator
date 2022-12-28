@@ -70,3 +70,11 @@ input:out-of-range {
 .error:empty {
   display: none;
 }
+
+input:read-only {
+  background: transparent;
+  border-color: transparent;
+  pointer-events: none;
+  cursor: default;
+  outline: none;
+}

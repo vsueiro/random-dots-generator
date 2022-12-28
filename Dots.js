@@ -13,11 +13,6 @@ class Dot {
     this.foreground = this.instance.foreground;
   }
 
-  // Function to generate random float between two numbers
-  random(min, max) {
-    return Math.random() * (max - min) + min;
-  }
-
   // Calculate lower bounds
   get min() {
     return {
@@ -43,6 +38,11 @@ class Dot {
       fill="${this.foreground}"
     ></circle>`;
   }
+
+  // Function to generate random float between two numbers
+  random(min, max) {
+    return Math.random() * (max - min) + min;
+  }
 }
 
 class Dots {
@@ -53,6 +53,12 @@ class Dots {
     this.setRenderer(element);
 
     this.draw();
+  }
+
+  get count() {
+    if (this.renderer === "svg") {
+      return this.svg.querySelectorAll("circle").length;
+    }
   }
 
   setOptions(options) {
@@ -84,13 +90,20 @@ class Dots {
     // Clear element
     element.replaceChildren();
 
-    this.svg = undefined;
-    this.canvas = undefined;
+    // Define basic dimensions
+    let width = this.width;
+    let height = this.height;
+
+    // If frame is a circle
+    if (this.shape === "circle") {
+      // Make both sides the same
+      width = height;
+    }
 
     if (this.renderer === "svg") {
       const markup = `<svg
-        width="${this.width}"
-        height="${this.height}"
+        width="${width}"
+        height="${height}"
         xmlns="http://www.w3.org/2000/svg"
       ></svg>`;
 
@@ -100,8 +113,8 @@ class Dots {
     }
 
     if (this.renderer === "canvas") {
-      this.canvas = document.createElement("canvas");
-      element.innerHTML = this.svg;
+      const markup = `<canvas></canvas>`;
+      element.innerHTML = markup;
       this.canvas = element.querySelector("canvas");
     }
   }
@@ -112,18 +125,32 @@ class Dots {
 
   drawBackground() {
     if (this.renderer === "svg") {
-      // Create a rectangle as the background
-      let markup = `
-        <rect
-          x="0"
-          y="0"
-          width="${this.width}"
-          height="${this.height}"
-          fill="${this.background}"
-        ></rect>
-      `;
+      let markup = ``;
 
-      // Add rectangle to SVG
+      if (this.shape === "rectangle") {
+        // Create a rectangle as background
+        markup = `
+          <rect
+            x="0"
+            y="0"
+            width="${this.width}"
+            height="${this.height}"
+            fill="${this.background}"
+          ></rect>
+        `;
+      } else if (this.shape === "circle") {
+        // Create a circle as background
+        markup = `
+          <circle
+            cx="${this.width / 2}"
+            cy="${this.height / 2}"
+            r="${this.height / 2}"
+            fill="${this.background}"
+          ></circle>
+        `;
+      }
+
+      // Add shape to SVG
       this.append(markup);
     }
   }
@@ -133,6 +160,21 @@ class Dots {
     let a = x1 - x2;
     let b = y1 - y2;
     return Math.sqrt(a * a + b * b);
+  }
+
+  // Calculates wheter dot is inside circle shape
+  outside(dot) {
+    // Calculate distance (hypotenuse) between dot center and canvas center
+    let distance = this.distance(this.width / 2, this.height / 2, dot.x, dot.y);
+
+    let minDistance = this.height / 2 - this.padding;
+
+    // If new dot is inside circle
+    if (distance < minDistance) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   overlaps(dot) {
@@ -165,25 +207,46 @@ class Dots {
         // Create new random dot
         let dot = new Dot(this);
 
-        // If overlaps are not allowed
-        if (this.preventOverlap) {
+        // If frame is a circle AND overlaps are not allowed
+        if (this.shape === "circle" && this.preventOverlap) {
           // Count number of tries
           let tries = 0;
 
-          // Keep generating random dots until one of them doesn’t overlap
-          while (this.overlaps(dot)) {
+          // Keep generating random dots until one of them doesn’t overlap AND is inside the circle
+          while (this.outside(dot) || this.overlaps(dot)) {
             dot = new Dot(this);
             tries++;
-
-            if (tries < 0) {
-              console.log(tries);
-            }
 
             if (tries > this.triesLimit) {
               this.warning("Too many dots to prevent overlap :/");
               stop = true;
-              // this.reset();
               break;
+            }
+          }
+        } else {
+          // If frame is a circle
+          if (this.shape === "circle") {
+            // Keep generating random dots until one of them is inside the circle
+            while (this.outside(dot)) {
+              dot = new Dot(this);
+            }
+          }
+
+          // If overlaps are not allowed
+          if (this.preventOverlap) {
+            // Count number of tries
+            let tries = 0;
+
+            // Keep generating random dots until one of them doesn’t overlap
+            while (this.overlaps(dot)) {
+              dot = new Dot(this);
+              tries++;
+
+              if (tries > this.triesLimit) {
+                this.warning("Too many dots to prevent overlap :/");
+                stop = true;
+                break;
+              }
             }
           }
         }
@@ -207,12 +270,6 @@ class Dots {
     this.drawForeground();
 
     console.log(`Created ${this.count} dots.`);
-  }
-
-  get count() {
-    if (this.renderer === "svg") {
-      return this.svg.querySelectorAll("circle").length;
-    }
   }
 
   redraw(options = this.options) {
