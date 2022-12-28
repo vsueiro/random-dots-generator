@@ -9,7 +9,7 @@
 
 .Dots svg,
 .Dots canvas {
-  display: flex;
+  display: block;
 }
 
 .Dots[data-shape="circle"] {
