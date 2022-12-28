@@ -73,11 +73,22 @@ form.addEventListener("input", () => {
   // Allow wrapper dimensions to update when form values change
   element.style = "";
 
+  const options = getOptions(form);
+
   // Disable width input if shape is circle
-  if (getOptions(form).shape === "circle") {
+  if (options.shape === "circle") {
     form.querySelector('[name="width"]').readOnly = true;
   } else {
     form.querySelector('[name="width"]').readOnly = false;
+  }
+
+  console.log(options);
+
+  // Disable margin input if prevent overlap is off
+  if (options.preventOverlap) {
+    form.querySelector('[name="margin"]').readOnly = false;
+  } else {
+    form.querySelector('[name="margin"]').readOnly = true;
   }
 
   // Update dots

@@ -6,6 +6,25 @@
   padding: 0;
 }
 
+button {
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  border: 2px solid DeepPink;
+  font-weight: bold;
+  background: transparent;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: DeepPink;
+}
+
+button:focus,
+button:hover {
+  background: DeepPink;
+  color: GhostWhite;
+}
+
 body {
   font-family: "JetBrains Mono", monospace;
   background: Lavender;
@@ -31,7 +50,7 @@ fieldset {
   flex-direction: column;
   padding: 8px;
   margin: 8px;
-  border: 1px solid RebeccaPurple;
+  border: 2px solid RebeccaPurple;
   border-radius: 4px;
 }
 
@@ -56,19 +75,17 @@ label input:disabled + span {
 }
 
 input[type="number"] {
-  border: 1px solid RebeccaPurple;
+  border: none;
   border-radius: 4px;
   background: GhostWhite;
   padding: 4px;
   height: 28px;
   font-family: "JetBrains Mono", monospace;
+  color: inherit;
 }
 
-input[type="color"] {
-  margin: 0;
-  padding: 0;
-  border: 1px solid RebeccaPurple;
-  border-radius: 4px;
+input:focus {
+  outline: 2px solid DeepPink;
 }
 
 input:invalid,
