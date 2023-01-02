@@ -12,54 +12,6 @@
       <div id="controls">
         <form>
           <fieldset>
-            <legend>Dots</legend>
-            <div class="label-container">
-              <label>
-                <span>Amount</span>
-                <input
-                  type="number"
-                  name="amount"
-                  value="1000"
-                  min="1"
-                  required
-                />
-              </label>
-              <label>
-                <span>Radius</span>
-                <input type="number" name="radius" value="2" min="0" required />
-              </label>
-              <label>
-                <span>Margin</span>
-                <input type="number" name="margin" value="2" min="0" required />
-              </label>
-              <label>
-                <span>Color</span>
-                <input
-                  type="color"
-                  name="foreground"
-                  value="#000000"
-                  required
-                />
-              </label>
-              <label>
-                <span>Opacity</span>
-                <input
-                  type="range"
-                  name="foregroundOpacity"
-                  min="0"
-                  max="1"
-                  step="0.1"
-                  value="1"
-                  required
-                />
-              </label>
-              <label>
-                <input type="checkbox" name="preventOverlap" checked />
-                <span>Prevent overlap</span>
-              </label>
-            </div>
-          </fieldset>
-          <fieldset>
             <legend>Canvas</legend>
             <div class="label-container">
               <label>
@@ -131,6 +83,100 @@
                   </label>
                 </div>
               </fieldset>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Dots</legend>
+            <div class="label-container">
+              <label>
+                <span>Amount</span>
+                <input
+                  type="number"
+                  name="amount"
+                  value="1000"
+                  min="1"
+                  required
+                />
+              </label>
+              <label>
+                <span>Radius</span>
+                <input type="number" name="radius" value="2" min="0" required />
+              </label>
+              <label>
+                <span>Margin</span>
+                <input type="number" name="margin" value="2" min="0" required />
+              </label>
+              <label>
+                <span>Color</span>
+                <input
+                  type="color"
+                  name="foreground"
+                  value="#000000"
+                  required
+                />
+              </label>
+              <label>
+                <span>Opacity</span>
+                <input
+                  type="range"
+                  name="foregroundOpacity"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value="1"
+                  required
+                />
+              </label>
+              <label>
+                <input type="checkbox" name="preventOverlap" checked />
+                <span>Prevent overlap</span>
+              </label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Highlights</legend>
+            <div class="label-container">
+              <label>
+                <span>Amount</span>
+                <input
+                  type="number"
+                  name="highlightAmount"
+                  value="10"
+                  min="1"
+                  required
+                />
+              </label>
+              <label>
+                <span>Radius</span>
+                <input
+                  type="number"
+                  name="highlightRadius"
+                  value="2"
+                  min="0"
+                  required
+                />
+              </label>
+              <label>
+                <span>Color</span>
+                <input
+                  type="color"
+                  name="highlightForeground"
+                  value="#FF0000"
+                  required
+                />
+              </label>
+              <label>
+                <span>Opacity</span>
+                <input
+                  type="range"
+                  name="highlightForegroundOpacity"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value="1"
+                  required
+                />
+              </label>
             </div>
           </fieldset>
           <fieldset>

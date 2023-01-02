@@ -19,6 +19,9 @@ function getOptions(form) {
     "padding",
     "foregroundOpacity",
     "backgroundOpacity",
+    "highlightAmount",
+    "highlightRadius",
+    "highlightForegroundOpacity",
   ];
   const Booleans = ["preventOverlap"];
 
