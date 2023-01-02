@@ -46,12 +46,15 @@ form {
 }
 
 fieldset {
-  display: flex;
-  flex-direction: column;
   padding: 8px;
   margin: 8px;
   border: 2px solid RebeccaPurple;
   border-radius: 4px;
+}
+
+.label-container {
+  display: flex;
+  flex-direction: column;
 }
 
 legend {

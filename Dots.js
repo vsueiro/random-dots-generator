@@ -29,7 +29,7 @@ class Dot {
     };
   }
 
-  // Create a single circle
+  // Create a single SVG circle
   get markup() {
     return `<circle
       cx="${this.x}"
@@ -56,6 +56,7 @@ class Dots {
   }
 
   get count() {
+    // <svg>
     if (this.renderer === "svg") {
       return this.svg.querySelectorAll("circle").length;
     }
@@ -84,6 +85,9 @@ class Dots {
 
     // Maximum tries
     this.triesLimit = 10000;
+
+    // Context to draw shapes inside <canvas>
+    this.context = undefined;
   }
 
   setRenderer(element = this.element) {
@@ -100,6 +104,7 @@ class Dots {
       width = height;
     }
 
+    // <svg>
     if (this.renderer === "svg") {
       const markup = `<svg
         width="${width}"
@@ -111,11 +116,17 @@ class Dots {
 
       this.svg = element.querySelector("svg");
     }
+    // <canvas>
+    else if (this.renderer === "canvas") {
+      const markup = `<canvas
+        width="${width}"
+        height="${height}"
+      ></canvas>`;
 
-    if (this.renderer === "canvas") {
-      const markup = `<canvas></canvas>`;
       element.innerHTML = markup;
+
       this.canvas = element.querySelector("canvas");
+      this.context = this.canvas.getContext("2d");
     }
   }
 
@@ -124,6 +135,7 @@ class Dots {
   }
 
   drawBackground() {
+    // <svg>
     if (this.renderer === "svg") {
       let markup = ``;
 
@@ -153,6 +165,26 @@ class Dots {
       // Add shape to SVG
       this.append(markup);
     }
+    // <canvas>
+    else if (this.renderer === "canvas") {
+      if (this.shape === "rectangle") {
+        // Create a rectangle as background
+        this.context.fillStyle = this.background;
+        this.context.fillRect(0, 0, this.width, this.height);
+      } else if (this.shape === "circle") {
+        // Create a circle as background
+        this.context.beginPath();
+        this.context.arc(
+          this.width / 2,
+          this.height / 2,
+          this.height / 2,
+          0,
+          2 * Math.PI
+        );
+        this.context.fillStyle = this.background;
+        this.context.fill();
+      }
+    }
   }
 
   // Function to calculate distance between two points
@@ -162,19 +194,15 @@ class Dots {
     return Math.sqrt(a * a + b * b);
   }
 
-  // Calculates wheter dot is inside circle shape
+  // Calculates wheter dot is outside circle shape
   outside(dot) {
     // Calculate distance (hypotenuse) between dot center and canvas center
     let distance = this.distance(this.width / 2, this.height / 2, dot.x, dot.y);
 
     let minDistance = this.height / 2 - this.padding;
 
-    // If new dot is inside circle
-    if (distance < minDistance) {
-      return false;
-    } else {
-      return true;
-    }
+    // If new dot is outside circle, return true
+    return distance > minDistance;
   }
 
   overlaps(dot) {
@@ -279,18 +307,38 @@ class Dots {
   }
 
   download() {
-    if (this.renderer === "svg") {
-      console.log("downloading");
+    // Create temporary <a> element
+    const a = document.createElement("a");
 
+    // Define filename
+    const filename = `${this.amount}-dots-${this.width}x${this.height}`;
+
+    // <svg>
+    if (this.renderer === "svg") {
       const svg = this.element.innerHTML;
       const blob = new Blob([svg.toString()]);
-      const a = document.createElement("a");
 
-      a.download = `${this.amount}-dots-${this.width}x${this.height}.svg`;
+      // Convert SVG to URL
       a.href = window.URL.createObjectURL(blob);
-      a.click();
-      a.remove();
+
+      // Build download attribule
+      a.download = `${filename}.svg`;
     }
+
+    // <canvas>
+    else if (this.renderer === "canvas") {
+      // Convert canvas to data URL
+      a.href = this.canvas.toDataURL();
+
+      // Build download attribule
+      a.download = `${filename}.png`;
+    }
+
+    // Simulate click on <a> element, to trigger download
+    a.click();
+
+    // Discard <a> element
+    a.remove();
   }
 
   warning(message) {
