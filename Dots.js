@@ -217,7 +217,8 @@ class Dots {
     // Calculate distance (hypotenuse) between dot center and canvas center
     let distance = this.distance(this.width / 2, this.height / 2, dot.x, dot.y);
 
-    let minDistance = this.height / 2 - this.padding;
+    // Calculate minimum distance between center of canvas and center of dot
+    let minDistance = this.height / 2 - dot.radius - this.padding;
 
     // If new dot is outside circle, return true
     return distance > minDistance;
