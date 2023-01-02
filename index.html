@@ -14,73 +14,138 @@
         <form>
           <fieldset>
             <legend>Dots</legend>
-            <label>
-              <span>Amount</span>
-              <input
-                type="number"
-                name="amount"
-                value="1000"
-                min="1"
-                required
-              />
-            </label>
-            <label>
-              <span>Radius</span>
-              <input type="number" name="radius" value="2" min="0" required />
-            </label>
-            <label>
-              <span>Margin</span>
-              <input type="number" name="margin" value="2" min="0" required />
-            </label>
-            <label>
-              <span>Color</span>
-              <input type="color" name="foreground" value="#000000" required />
-            </label>
-            <label>
-              <input type="checkbox" name="preventOverlap" checked />
-              <span>Prevent overlap</span>
-            </label>
+            <div class="label-container">
+              <label>
+                <span>Amount</span>
+                <input
+                  type="number"
+                  name="amount"
+                  value="1000"
+                  min="1"
+                  required
+                />
+              </label>
+              <label>
+                <span>Radius</span>
+                <input type="number" name="radius" value="2" min="0" required />
+              </label>
+              <label>
+                <span>Margin</span>
+                <input type="number" name="margin" value="2" min="0" required />
+              </label>
+              <label>
+                <span>Color</span>
+                <input
+                  type="color"
+                  name="foreground"
+                  value="#000000"
+                  required
+                />
+              </label>
+              <label>
+                <span>Opacity</span>
+                <input
+                  type="range"
+                  name="foregroundOpacity"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value="1"
+                  required
+                />
+              </label>
+              <label>
+                <input type="checkbox" name="preventOverlap" checked />
+                <span>Prevent overlap</span>
+              </label>
+            </div>
           </fieldset>
           <fieldset>
             <legend>Canvas</legend>
-            <label>
-              <span>Width</span>
-              <input type="number" name="width" value="640" min="0" required />
-            </label>
-            <label>
-              <span>Height</span>
-              <input type="number" name="height" value="360" min="0" required />
-            </label>
-            <label>
-              <span>Padding</span>
-              <input type="number" name="padding" value="2" min="0" required />
-            </label>
-            <label>
-              <span>Color</span>
-              <input type="color" name="background" value="#ffffff" required />
-            </label>
-            <fieldset>
-              <legend>Shape</legend>
+            <div class="label-container">
               <label>
-                <input type="radio" name="shape" value="rectangle" checked />
-                <span>Rectangle</span>
+                <span>Width</span>
+                <input
+                  type="number"
+                  name="width"
+                  value="640"
+                  min="0"
+                  required
+                />
               </label>
               <label>
-                <input type="radio" name="shape" value="circle" />
-                <span>Circle</span>
+                <span>Height</span>
+                <input
+                  type="number"
+                  name="height"
+                  value="360"
+                  min="0"
+                  required
+                />
               </label>
-            </fieldset>
+              <label>
+                <span>Padding</span>
+                <input
+                  type="number"
+                  name="padding"
+                  value="2"
+                  min="0"
+                  required
+                />
+              </label>
+              <label>
+                <span>Color</span>
+                <input
+                  type="color"
+                  name="background"
+                  value="#ffffff"
+                  required
+                />
+              </label>
+              <label>
+                <span>Opacity</span>
+                <input
+                  type="range"
+                  name="backgroundOpacity"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value="1"
+                  required
+                />
+              </label>
+              <fieldset>
+                <legend>Shape</legend>
+                <div class="label-container">
+                  <label>
+                    <input
+                      type="radio"
+                      name="shape"
+                      value="rectangle"
+                      checked
+                    />
+                    <span>Rectangle</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="shape" value="circle" />
+                    <span>Circle</span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
           </fieldset>
           <fieldset>
             <legend>Renderer</legend>
-            <label>
-              <input type="radio" name="renderer" value="svg" checked />
-              <span>SVG</span>
-            </label>
-            <label>
-              <input type="radio" name="renderer" value="canvas" disabled />
-              <span>PNG</span>
-            </label>
+            <div class="label-container">
+              <label>
+                <input type="radio" name="renderer" value="svg" checked />
+                <span>SVG</span>
+              </label>
+              <label>
+                <input type="radio" name="renderer" value="canvas" />
+                <span>PNG</span>
+              </label>
+            </div>
           </fieldset>
         </form>
       </div>
@@ -89,7 +154,7 @@
         <div class="Dots"></div>
         <p class="error"></p>
         <button class="variant">Create Variant</button>
-        <button class="download">Download SVG</button>
+        <button class="download">Download</button>
       </div>
     </div>
 
