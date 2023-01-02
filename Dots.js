@@ -11,6 +11,7 @@ class Dot {
 
     this.radius = this.instance.radius;
     this.foreground = this.instance.foreground;
+    this.foregroundOpacity = this.instance.foregroundOpacity;
   }
 
   // Calculate lower bounds
@@ -36,7 +37,20 @@ class Dot {
       cy="${this.y}"
       r="${this.radius}"
       fill="${this.foreground}"
+      fill-opacity="${this.foregroundOpacity}"
     ></circle>`;
+  }
+
+  // Draw dot on <canvas> element
+  draw(context) {
+    // Change opacity
+    context.globalAlpha = this.foregroundOpacity;
+
+    // Create a circle on canvas
+    context.beginPath();
+    context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+    context.fillStyle = this.foreground;
+    context.fill();
   }
 
   // Function to generate random float between two numbers
@@ -56,10 +70,7 @@ class Dots {
   }
 
   get count() {
-    // <svg>
-    if (this.renderer === "svg") {
-      return this.svg.querySelectorAll("circle").length;
-    }
+    return this.list.length;
   }
 
   setOptions(options) {
@@ -71,6 +82,7 @@ class Dots {
     this.radius = options.radius;
     this.margin = options.margin;
     this.foreground = options.foreground;
+    this.foregroundOpacity = options.foregroundOpacity;
     this.preventOverlap = options.preventOverlap;
 
     // Canvas
@@ -78,6 +90,7 @@ class Dots {
     this.height = options.height;
     this.padding = options.padding;
     this.background = options.background;
+    this.backgroundOpacity = options.backgroundOpacity;
     this.shape = options.shape;
 
     // Empty list of dots
@@ -148,6 +161,7 @@ class Dots {
             width="${this.width}"
             height="${this.height}"
             fill="${this.background}"
+            fill-opacity="${this.backgroundOpacity}"
           ></rect>
         `;
       } else if (this.shape === "circle") {
@@ -158,6 +172,7 @@ class Dots {
             cy="${this.height / 2}"
             r="${this.height / 2}"
             fill="${this.background}"
+            fill-opacity="${this.backgroundOpacity}"
           ></circle>
         `;
       }
@@ -167,6 +182,9 @@ class Dots {
     }
     // <canvas>
     else if (this.renderer === "canvas") {
+      // Change opacity
+      this.context.globalAlpha = this.backgroundOpacity;
+
       if (this.shape === "rectangle") {
         // Create a rectangle as background
         this.context.fillStyle = this.background;
@@ -226,22 +244,46 @@ class Dots {
   }
 
   drawForeground() {
-    if (this.renderer === "svg") {
-      // Define stop flag to prevent browser from chashing
-      let stop = false;
+    // Define stop flag to prevent browser from chashing
+    let stop = false;
 
-      // Create dots until they reach the defined amount
-      for (let i = 0; i < this.amount; i++) {
-        // Create new random dot
-        let dot = new Dot(this);
+    // Create dots until they reach the defined amount
+    for (let i = 0; i < this.amount; i++) {
+      // Create new random dot
+      let dot = new Dot(this);
 
-        // If frame is a circle AND overlaps are not allowed
-        if (this.shape === "circle" && this.preventOverlap) {
+      // If frame is a circle AND overlaps are not allowed
+      if (this.shape === "circle" && this.preventOverlap) {
+        // Count number of tries
+        let tries = 0;
+
+        // Keep generating random dots until one of them doesn’t overlap AND is inside the circle
+        while (this.outside(dot) || this.overlaps(dot)) {
+          dot = new Dot(this);
+          tries++;
+
+          if (tries > this.triesLimit) {
+            this.warning("Too many dots to prevent overlap :/");
+            stop = true;
+            break;
+          }
+        }
+      } else {
+        // If frame is a circle
+        if (this.shape === "circle") {
+          // Keep generating random dots until one of them is inside the circle
+          while (this.outside(dot)) {
+            dot = new Dot(this);
+          }
+        }
+
+        // If overlaps are not allowed
+        if (this.preventOverlap) {
           // Count number of tries
           let tries = 0;
 
-          // Keep generating random dots until one of them doesn’t overlap AND is inside the circle
-          while (this.outside(dot) || this.overlaps(dot)) {
+          // Keep generating random dots until one of them doesn’t overlap
+          while (this.overlaps(dot)) {
             dot = new Dot(this);
             tries++;
 
@@ -251,44 +293,27 @@ class Dots {
               break;
             }
           }
-        } else {
-          // If frame is a circle
-          if (this.shape === "circle") {
-            // Keep generating random dots until one of them is inside the circle
-            while (this.outside(dot)) {
-              dot = new Dot(this);
-            }
-          }
-
-          // If overlaps are not allowed
-          if (this.preventOverlap) {
-            // Count number of tries
-            let tries = 0;
-
-            // Keep generating random dots until one of them doesn’t overlap
-            while (this.overlaps(dot)) {
-              dot = new Dot(this);
-              tries++;
-
-              if (tries > this.triesLimit) {
-                this.warning("Too many dots to prevent overlap :/");
-                stop = true;
-                break;
-              }
-            }
-          }
         }
+      }
 
-        // Prevent overlapping dot from being added
-        if (stop) {
-          break;
-        }
+      // Prevent overlapping dot from being added
+      if (stop) {
+        break;
+      }
 
-        // Add new dot to list of existing dots
-        this.list.push(dot);
+      // Add new dot to list of existing dots
+      this.list.push(dot);
 
+      // <svg>
+      if (this.renderer === "svg") {
         // Add the dot to the SVG
         this.append(dot.markup);
+      }
+
+      // <canvas>
+      else if (this.renderer === "canvas") {
+        // Draw dot on canvas
+        dot.draw(this.context);
       }
     }
   }

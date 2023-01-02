@@ -10,7 +10,16 @@ function getOptions(form) {
   let options = Object.fromEntries(formData);
 
   // Parse specific properties as numbers or booleans
-  const Numbers = ["amount", "radius", "width", "height", "margin", "padding"];
+  const Numbers = [
+    "amount",
+    "radius",
+    "width",
+    "height",
+    "margin",
+    "padding",
+    "foregroundOpacity",
+    "backgroundOpacity",
+  ];
   const Booleans = ["preventOverlap"];
 
   // For each value in the form

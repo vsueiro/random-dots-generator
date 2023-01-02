@@ -87,7 +87,7 @@ input[type="number"] {
   color: inherit;
 }
 
-input:focus {
+input[type="number"]:focus {
   outline: 2px solid DeepPink;
 }
 
@@ -113,7 +113,7 @@ input:out-of-range {
   display: none;
 }
 
-input:read-only {
+input[type="number"]:read-only {
   background: transparent;
   border-color: transparent;
   pointer-events: none;
