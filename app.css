@@ -1,10 +1,79 @@
+/* Font */
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap");
 
+/* Reset */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+/* Dots <canvas> and <svg> */
+
+.Dots {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  margin: 8px;
+  resize: both;
+  overflow: hidden;
+  box-shadow: 0 0 0 2px transparent;
+  transition: box-shadow 0.4s;
+  border-radius: 4px;
+}
+
+.Dots:hover {
+  box-shadow: 0 0 0 2px DeepPink;
+}
+.Dots[data-shape="circle"] {
+  box-shadow: 0 0 0 2px DeepPink;
+  border-radius: 50% 50% 4px 50%;
+}
+
+.Dots svg,
+.Dots canvas {
+  display: block;
+}
+
+.Dots[data-shape="circle"] {
+  resize: vertical;
+  aspect-ratio: 1;
+}
+
+.Dots::after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: -16px;
+  bottom: -16px;
+  width: 32px;
+  height: 32px;
+  transform: rotate(45deg);
+  z-index: 1;
+  pointer-events: none;
+  background: DeepPink;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.Dots:hover::after,
+.Dots[data-shape="circle"]::after {
+  opacity: 1;
+}
+
+/* General */
+
+body {
+  font-family: "JetBrains Mono", monospace;
+  background: Lavender;
+  color: Indigo;
+}
+
+h1 {
+  padding: 8px;
+}
+
+/* Form elements */
 
 button {
   border: none;
@@ -23,16 +92,6 @@ button:focus,
 button:hover {
   background: DeepPink;
   color: GhostWhite;
-}
-
-body {
-  font-family: "JetBrains Mono", monospace;
-  background: Lavender;
-  color: Indigo;
-}
-
-h1 {
-  padding: 8px;
 }
 
 button {
@@ -96,9 +155,15 @@ input:out-of-range {
   border: 2px solid Tomato;
 }
 
-.count.invalid {
-  color: Tomato;
+input[type="number"]:read-only {
+  background: transparent;
+  border-color: transparent;
+  pointer-events: none;
+  cursor: default;
+  outline: none;
 }
+
+/* Error */
 
 .error {
   background: Tomato;
@@ -111,12 +176,4 @@ input:out-of-range {
 
 .error:empty {
   display: none;
-}
-
-input[type="number"]:read-only {
-  background: transparent;
-  border-color: transparent;
-  pointer-events: none;
-  cursor: default;
-  outline: none;
 }
