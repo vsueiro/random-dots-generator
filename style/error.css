@@ -1,0 +1,14 @@
+/* Error */
+
+.error {
+  background: Tomato;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 4px;
+  color: White;
+  width: fit-content;
+}
+
+.error:empty {
+  display: none;
+}

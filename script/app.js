@@ -41,6 +41,8 @@ function getOptions(form) {
     }
   }
 
+  console.log(options);
+
   // Return converted object
   return options;
 }

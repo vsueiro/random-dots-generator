@@ -1,0 +1,99 @@
+/* Form elements */
+
+/* Button */
+
+button {
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  border: 2px solid DeepPink;
+  font-weight: bold;
+  background: transparent;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: DeepPink;
+  margin: 8px;
+  user-select: none;
+}
+
+button:focus,
+button:hover {
+  background: DeepPink;
+  color: GhostWhite;
+}
+
+button:active {
+  transform: translate(0, 2px);
+  opacity: 0.75;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Fieldset */
+
+fieldset {
+  padding: 8px;
+  margin: 8px;
+  border: 2px solid RebeccaPurple;
+  border-radius: 4px;
+}
+
+/* Label */
+
+.label-container {
+  display: flex;
+  flex-direction: column;
+}
+
+legend {
+  padding: 0 8px;
+  font-weight: bold;
+}
+
+label {
+  white-space: nowrap;
+  margin: 4px 8px;
+  user-select: none;
+}
+
+label span {
+  display: inline-flex;
+  min-width: 80px;
+}
+
+label input:disabled + span {
+  opacity: 0.5;
+}
+
+/* Input */
+
+input[type="number"] {
+  border: none;
+  border-radius: 4px;
+  background: GhostWhite;
+  padding: 4px;
+  height: 28px;
+  font-family: "JetBrains Mono", monospace;
+  color: inherit;
+}
+
+input[type="number"]:focus {
+  outline: 2px solid DeepPink;
+}
+
+input:invalid,
+input:out-of-range {
+  border: 2px solid Tomato;
+}
+
+input[type="number"]:read-only {
+  background: transparent;
+  border-color: transparent;
+  pointer-events: none;
+  cursor: default;
+  outline: none;
+}

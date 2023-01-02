@@ -9,9 +9,19 @@ class Dot {
     this.x = this.random(this.min.x, this.max.x);
     this.y = this.random(this.min.y, this.max.y);
 
-    this.radius = this.instance.radius;
-    this.foreground = this.instance.foreground;
-    this.foregroundOpacity = this.instance.foregroundOpacity;
+    // Define properties of highlighted dot
+    if (this.isHighlight) {
+      this.radius = this.instance.highlightRadius;
+      this.foreground = this.instance.highlightForeground;
+      this.foregroundOpacity = this.instance.highlightForegroundOpacity;
+    }
+
+    // Define properties of regular dot
+    else {
+      this.radius = this.instance.radius;
+      this.foreground = this.instance.foreground;
+      this.foregroundOpacity = this.instance.foregroundOpacity;
+    }
   }
 
   // Calculate lower bounds
@@ -39,6 +49,14 @@ class Dot {
       fill="${this.foreground}"
       fill-opacity="${this.foregroundOpacity}"
     ></circle>`;
+  }
+
+  // Checks whether this dot should be highlighted
+  get isHighlight() {
+    const current = this.instance.count + 1;
+    const limit = this.instance.amount - this.instance.highlightAmount;
+
+    return current > limit;
   }
 
   // Draw dot on <canvas> element
@@ -77,6 +95,14 @@ class Dots {
     // Renderer
     this.renderer = options.renderer;
 
+    // Canvas
+    this.width = options.width;
+    this.height = options.height;
+    this.padding = options.padding;
+    this.background = options.background;
+    this.backgroundOpacity = options.backgroundOpacity;
+    this.shape = options.shape;
+
     // Dots
     this.amount = options.amount;
     this.radius = options.radius;
@@ -85,13 +111,11 @@ class Dots {
     this.foregroundOpacity = options.foregroundOpacity;
     this.preventOverlap = options.preventOverlap;
 
-    // Canvas
-    this.width = options.width;
-    this.height = options.height;
-    this.padding = options.padding;
-    this.background = options.background;
-    this.backgroundOpacity = options.backgroundOpacity;
-    this.shape = options.shape;
+    // Highlights
+    this.highlightAmount = options.highlightAmount;
+    this.highlightRadius = options.highlightRadius;
+    this.highlightForeground = options.highlightForeground;
+    this.highlightForegroundOpacity = options.highlightForegroundOpacity;
 
     // Empty list of dots
     this.list = [];

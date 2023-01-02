@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>Random Dots Generator</title>
   </head>
-  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="style/app.css" />
   <body>
     <div id="app">
       <h1>Random Dots Generator</h1>
@@ -142,7 +142,7 @@
                   type="number"
                   name="highlightAmount"
                   value="10"
-                  min="1"
+                  min="0"
                   required
                 />
               </label>
@@ -203,39 +203,7 @@
       </div>
     </div>
 
-    <script src="Dots.js"></script>
-    <script src="app.js"></script>
-    <script>
-      /*
-      const form = document.querySelector("form");
-      const button = document.querySelector("button");
-      const wrapper = document.querySelector("#svg-wrapper");
-      const svg = document.querySelector("svg");
-      const namespace = "http://www.w3.org/2000/svg";
-
-      const dots = new Dots(svg, options);
-
-      button.onclick = dots.download;
-
-      // Make SVG container resizable
-      const resizeObserver = new ResizeObserver((entries) => {
-        for (let entry of entries) {
-          console.log(entry.contentRect.width, entry.contentRect.height);
-
-          // Recreate dots with new dimensions
-          update();
-        }
-      });
-
-      // Listen for user resize of SVG wrapper
-      resizeObserver.observe(wrapper);
-
-      // Recreate
-      wrapper.addEventListener("resize", update);
-      window.addEventListener("resize", update);
-
-      create();
-      */
-    </script>
+    <script src="script/Dots.js"></script>
+    <script src="script/app.js"></script>
   </body>
 </html>
