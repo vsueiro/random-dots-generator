@@ -1,0 +1,11 @@
+/* General */
+
+body {
+  font-family: "JetBrains Mono", monospace;
+  background: Lavender;
+  color: Indigo;
+}
+
+h1 {
+  padding: 8px;
+}

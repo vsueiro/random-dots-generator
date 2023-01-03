@@ -1,10 +1,8 @@
+/* Style */
+
 .Dots {
   position: relative;
-  width: fit-content;
-  height: fit-content;
   margin: 8px;
-  resize: both;
-  overflow: hidden;
   box-shadow: 0 0 0 2px transparent;
   transition: box-shadow 0.4s;
   border-radius: 4px;
@@ -16,16 +14,6 @@
 .Dots[data-shape="circle"] {
   box-shadow: 0 0 0 2px DeepPink;
   border-radius: 50% 50% 4px 50%;
-}
-
-.Dots svg,
-.Dots canvas {
-  display: block;
-}
-
-.Dots[data-shape="circle"] {
-  resize: vertical;
-  aspect-ratio: 1;
 }
 
 .Dots::after {

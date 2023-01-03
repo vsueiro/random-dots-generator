@@ -9,9 +9,19 @@ class Dot {
     this.x = this.random(this.min.x, this.max.x);
     this.y = this.random(this.min.y, this.max.y);
 
-    this.radius = this.instance.radius;
-    this.foreground = this.instance.foreground;
-    this.foregroundOpacity = this.instance.foregroundOpacity;
+    // Define properties of highlighted dot
+    if (this.isHighlight) {
+      this.radius = this.instance.highlightRadius;
+      this.foreground = this.instance.highlightForeground;
+      this.foregroundOpacity = this.instance.highlightForegroundOpacity;
+    }
+
+    // Define properties of regular dot
+    else {
+      this.radius = this.instance.radius;
+      this.foreground = this.instance.foreground;
+      this.foregroundOpacity = this.instance.foregroundOpacity;
+    }
   }
 
   // Calculate lower bounds
@@ -39,6 +49,14 @@ class Dot {
       fill="${this.foreground}"
       fill-opacity="${this.foregroundOpacity}"
     ></circle>`;
+  }
+
+  // Checks whether this dot should be highlighted
+  get isHighlight() {
+    const current = this.instance.count + 1;
+    const limit = this.instance.amount - this.instance.highlightAmount;
+
+    return current > limit;
   }
 
   // Draw dot on <canvas> element
@@ -75,23 +93,29 @@ class Dots {
 
   setOptions(options) {
     // Renderer
-    this.renderer = options.renderer;
-
-    // Dots
-    this.amount = options.amount;
-    this.radius = options.radius;
-    this.margin = options.margin;
-    this.foreground = options.foreground;
-    this.foregroundOpacity = options.foregroundOpacity;
-    this.preventOverlap = options.preventOverlap;
+    this.renderer = options.renderer || "svg";
 
     // Canvas
-    this.width = options.width;
-    this.height = options.height;
-    this.padding = options.padding;
-    this.background = options.background;
-    this.backgroundOpacity = options.backgroundOpacity;
-    this.shape = options.shape;
+    this.width = options.width || 640;
+    this.height = options.height || 360;
+    this.padding = options.padding || 24;
+    this.background = options.background || "#FFFFFF";
+    this.backgroundOpacity = options.backgroundOpacity || 1;
+    this.shape = options.shape || "rectangle";
+
+    // Dots
+    this.amount = options.amount || 1000;
+    this.radius = options.radius || 4;
+    this.margin = options.margin || 2;
+    this.foreground = options.foreground || "#DDDDDD";
+    this.foregroundOpacity = options.foregroundOpacity || 1;
+    this.preventOverlap = options.preventOverlap || true;
+
+    // Highlights
+    this.highlightAmount = options.highlightAmount || 0;
+    this.highlightRadius = options.highlightRadius || 4;
+    this.highlightForeground = options.highlightForeground || "#0000FF";
+    this.highlightForegroundOpacity = options.highlightForegroundOpacity || 1;
 
     // Empty list of dots
     this.list = [];
@@ -217,7 +241,8 @@ class Dots {
     // Calculate distance (hypotenuse) between dot center and canvas center
     let distance = this.distance(this.width / 2, this.height / 2, dot.x, dot.y);
 
-    let minDistance = this.height / 2 - this.padding;
+    // Calculate minimum distance between center of canvas and center of dot
+    let minDistance = this.height / 2 - dot.radius - this.padding;
 
     // If new dot is outside circle, return true
     return distance > minDistance;
