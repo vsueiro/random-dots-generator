@@ -77,7 +77,7 @@ input[type="number"] {
   background: GhostWhite;
   padding: 4px;
   height: 28px;
-  font-family: "JetBrains Mono", monospace;
+  font-family: inherit;
   color: inherit;
 }
 

@@ -1,11 +1,20 @@
 /* General */
 
 body {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Martian Mono", monospace;
   background: Lavender;
   color: Indigo;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 24px;
 }
 
 h1 {
   padding: 8px;
 }
+}
+
+h1 span {
+  text-transform: lowercase;
+  font-variant: small-caps;
+  
