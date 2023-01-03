@@ -12,3 +12,21 @@ h1 span {
   text-transform: lowercase;
   font-variant: small-caps;
 }
+
+header,
+main,
+aside,
+footer,
+section,
+figure,
+#canvas {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 48px auto;
+}
+
+ul {
+  display: flex;
+}
