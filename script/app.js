@@ -41,8 +41,6 @@ function getOptions(form) {
     }
   }
 
-  console.log(options);
-
   // Return converted object
   return options;
 }
@@ -54,12 +52,12 @@ const dots = new Dots(element, options);
 
 // Update count
 function showCount() {
-  const error = document.querySelector(".error");
+  const error = document.querySelector(".error-message");
 
   if (dots.count < dots.amount) {
     error.textContent = `
       Too many dots to prevent overlap.
-      Only ${dots.count} dots created.
+      Only ${dots.count} created.
     `;
   } else {
     error.textContent = ``;
@@ -96,8 +94,6 @@ form.addEventListener("input", () => {
     form.querySelector('[name="width"]').readOnly = false;
   }
 
-  console.log(options);
-
   // Disable margin input if prevent overlap is off
   if (options.preventOverlap) {
     form.querySelector('[name="margin"]').readOnly = false;
@@ -118,8 +114,6 @@ const resizeObserver = new ResizeObserver((entries) => {
 
     // Get current form values
     const options = getOptions(form);
-
-    console.log(options);
 
     if (options.shape === "circle") {
       width = height;
@@ -152,8 +146,8 @@ variantButton.addEventListener("click", () => {
 (function () {
   // Define cute palette
   const colors = [
-    "#F8F8FF",
-    // "#E6E6FA",
+    // "#F8F8FF", // GhostWhite
+    "#E6E6FA",
     "#DDA0DD",
     "#663399",
     "#4B0082",
@@ -167,14 +161,14 @@ variantButton.addEventListener("click", () => {
 
   const element = document.querySelector(".Sample");
   const options = {
-    width: 240,
-    height: 240,
-    padding: 24,
+    width: 240 / 2,
+    height: 240 / 2,
+    padding: 24 / 2,
     amount: 100,
-    radius: 4,
-    margin: 4,
-    highlightAmount: 10,
-    highlightRadius: 6,
+    radius: 4 / 2,
+    margin: 4 / 2,
+    highlightAmount: 10 / 2,
+    highlightRadius: 6 / 2,
   };
 
   // Get random item from array AND exclude it from the array
@@ -227,5 +221,8 @@ variantButton.addEventListener("click", () => {
   randomize();
 
   // Call randomize function every 1 second
-  setInterval(randomize, 400);
+  setInterval(randomize, 500);
 })();
+
+// Show icons
+feather.replace();

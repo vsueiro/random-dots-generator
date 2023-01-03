@@ -1,15 +1,22 @@
 /* Form elements */
 
+form {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+}
+
 /* Button */
 
 button {
   border: none;
   font-family: inherit;
   font-size: inherit;
-  border: 2px solid DeepPink;
+  border: none;
+  box-shadow: inset 0 0 0 2px DeepPink;
   font-weight: bold;
   background: transparent;
-  padding: 4px 8px;
+  padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
   color: DeepPink;
@@ -28,18 +35,32 @@ button:active {
   opacity: 0.75;
 }
 
-form {
+button {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+}
+
+.buttons button {
+  margin: 16px;
 }
 
 /* Fieldset */
 
 fieldset {
-  padding: 8px;
-  margin: 8px;
-  border: 2px solid RebeccaPurple;
-  border-radius: 4px;
+  padding: 8px 24px 8px 8px;
+  width: 100%;
+  margin: 0;
+  /* border-top: 2px solid RebeccaPurple; */
+  border: none;
+  /* border-radius: 4px; */
+}
+
+fieldset + fieldset {
+  margin-top: 8px;
 }
 
 /* Label */
@@ -50,13 +71,15 @@ fieldset {
 }
 
 legend {
-  padding: 0 8px;
+  padding: 0 8px 0 8px;
   font-weight: bold;
+  color: GhostWhite;
+  opacity: 0.5;
 }
 
 label {
   white-space: nowrap;
-  margin: 4px 8px;
+  margin: 2px 0 2px 32px;
   user-select: none;
 }
 
@@ -74,11 +97,14 @@ label input:disabled + span {
 input[type="number"] {
   border: none;
   border-radius: 4px;
-  background: GhostWhite;
-  padding: 4px;
+  background: RebeccaPurple;
+  padding: 4px 8px;
   height: 28px;
+  width: 160px;
   font-family: inherit;
   color: inherit;
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
 }
 
 input[type="number"]:focus {
@@ -96,4 +122,45 @@ input[type="number"]:read-only {
   pointer-events: none;
   cursor: default;
   outline: none;
+}
+
+/* Toggle */
+
+.toggle {
+  display: flex;
+  border: 2px solid DeepPink;
+  border-radius: 4px;
+  overflow: hidden;
+  align-self: start;
+  margin: 8px 0 0 32px;
+}
+
+.toggle label {
+  margin: 0;
+  cursor: pointer;
+  width: fit-content;
+  align-self: flex-start;
+}
+
+.toggle label span {
+  min-width: initial;
+}
+
+.toggle input[type="radio"] {
+  display: none;
+}
+
+.toggle input + span {
+  display: flex;
+  padding: 4px 8px;
+  align-items: center;
+  color: GhostWhite;
+}
+
+.toggle label:hover input:not(:checked) + span {
+  background: rgba(255, 105, 180, 0.25);
+}
+
+.toggle input:checked + span {
+  background: DeepPink;
 }
