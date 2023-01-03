@@ -99,7 +99,7 @@ class Dots {
     this.width = options.width || 640;
     this.height = options.height || 360;
     this.padding = options.padding || 24;
-    this.background = options.background || "#FFFFFF";
+    this.background = options.background || "#F8F8FF";
     this.backgroundOpacity = options.backgroundOpacity || 1;
     this.shape = options.shape || "rectangle";
 
@@ -107,14 +107,14 @@ class Dots {
     this.amount = options.amount || 1000;
     this.radius = options.radius || 4;
     this.margin = options.margin || 2;
-    this.foreground = options.foreground || "#DDDDDD";
+    this.foreground = options.foreground || "#E6E6FA";
     this.foregroundOpacity = options.foregroundOpacity || 1;
     this.preventOverlap = options.preventOverlap || true;
 
     // Highlights
     this.highlightAmount = options.highlightAmount || 0;
     this.highlightRadius = options.highlightRadius || 4;
-    this.highlightForeground = options.highlightForeground || "#0000FF";
+    this.highlightForeground = options.highlightForeground || "#FF1493";
     this.highlightForegroundOpacity = options.highlightForegroundOpacity || 1;
 
     // Empty list of dots
