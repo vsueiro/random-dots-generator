@@ -1,22 +1,3 @@
-/* Essential */
-
-.Dots {
-  width: fit-content;
-  height: fit-content;
-  resize: both;
-  overflow: hidden;
-}
-
-.Dots[data-shape="circle"] {
-  resize: vertical;
-  aspect-ratio: 1;
-}
-
-.Dots svg,
-.Dots canvas {
-  display: block;
-}
-
 /* Style */
 
 .Dots {

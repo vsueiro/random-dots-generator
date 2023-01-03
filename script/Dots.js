@@ -93,29 +93,29 @@ class Dots {
 
   setOptions(options) {
     // Renderer
-    this.renderer = options.renderer;
+    this.renderer = options.renderer || "svg";
 
     // Canvas
-    this.width = options.width;
-    this.height = options.height;
-    this.padding = options.padding;
-    this.background = options.background;
-    this.backgroundOpacity = options.backgroundOpacity;
-    this.shape = options.shape;
+    this.width = options.width || 640;
+    this.height = options.height || 360;
+    this.padding = options.padding || 24;
+    this.background = options.background || "#FFFFFF";
+    this.backgroundOpacity = options.backgroundOpacity || 1;
+    this.shape = options.shape || "rectangle";
 
     // Dots
-    this.amount = options.amount;
-    this.radius = options.radius;
-    this.margin = options.margin;
-    this.foreground = options.foreground;
-    this.foregroundOpacity = options.foregroundOpacity;
-    this.preventOverlap = options.preventOverlap;
+    this.amount = options.amount || 1000;
+    this.radius = options.radius || 4;
+    this.margin = options.margin || 2;
+    this.foreground = options.foreground || "#DDDDDD";
+    this.foregroundOpacity = options.foregroundOpacity || 1;
+    this.preventOverlap = options.preventOverlap || true;
 
     // Highlights
-    this.highlightAmount = options.highlightAmount;
-    this.highlightRadius = options.highlightRadius;
-    this.highlightForeground = options.highlightForeground;
-    this.highlightForegroundOpacity = options.highlightForegroundOpacity;
+    this.highlightAmount = options.highlightAmount || 0;
+    this.highlightRadius = options.highlightRadius || 4;
+    this.highlightForeground = options.highlightForeground || "#0000FF";
+    this.highlightForegroundOpacity = options.highlightForegroundOpacity || 1;
 
     // Empty list of dots
     this.list = [];

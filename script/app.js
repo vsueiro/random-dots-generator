@@ -147,3 +147,85 @@ const variantButton = document.querySelector(".variant");
 variantButton.addEventListener("click", () => {
   redraw();
 });
+
+// Create sample
+(function () {
+  // Define cute palette
+  const colors = [
+    "#F8F8FF",
+    // "#E6E6FA",
+    "#DDA0DD",
+    "#663399",
+    "#4B0082",
+    "#FF69B4",
+    "#FF1493",
+    "#B0E0E6",
+    "#40E0D0",
+    "#FF7F50",
+    "#FF6347",
+  ];
+
+  const element = document.querySelector(".Sample");
+  const options = {
+    width: 240,
+    height: 240,
+    padding: 24,
+    amount: 100,
+    radius: 4,
+    margin: 4,
+    highlightAmount: 10,
+    highlightRadius: 6,
+  };
+
+  // Get random item from array AND exclude it from the array
+  function randomIndex(list) {
+    return Math.floor(Math.random() * list.length);
+  }
+
+  let sample;
+
+  // Define function to randomize sample graphics
+  function randomize() {
+    // Create a temporary clone of the original colors
+    let palette = [...colors];
+
+    // Create a temporary variable to hold an index from the array
+    let index;
+
+    // Define fields that should get random colors
+    let fields = ["foreground", "background", "highlightForeground"];
+
+    for (let field of fields) {
+      // Get random index
+      index = randomIndex(palette);
+
+      // Use color from that index
+      options[field] = palette[index];
+
+      // Delete color from palette (to prevent it from repeating)
+      palette.splice(index, 1);
+    }
+
+    // Randomize shape
+    options.shape = Math.random() > 0.5 ? "circle" : "rectangle";
+
+    // Redraw graphics with new options
+
+    // If an instance already exists
+    if (sample) {
+      // Update that instance
+      sample.redraw(options);
+    }
+    // If this function is running for the first time
+    else {
+      // Create an instance
+      sample = new Dots(element, options);
+    }
+  }
+
+  // Create first randomized graphics
+  randomize();
+
+  // Call randomize function every 1 second
+  setInterval(randomize, 400);
+})();

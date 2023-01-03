@@ -7,200 +7,312 @@
   <link rel="stylesheet" href="style/app.css" />
   <body>
     <div id="app">
-      <h1>Random Dots Generator</h1>
+      <main>
+        <header>
+          <h1>Random Dots Generator</h1>
+          <p>
+            Create an image with hundreds of tiny circles (with no overlaps!)
+          </p>
+        </header>
 
-      <div id="controls">
-        <form>
-          <fieldset>
-            <legend>Canvas</legend>
-            <div class="label-container">
-              <label>
-                <span>Width</span>
-                <input
-                  type="number"
-                  name="width"
-                  value="640"
-                  min="0"
-                  required
-                />
-              </label>
-              <label>
-                <span>Height</span>
-                <input
-                  type="number"
-                  name="height"
-                  value="360"
-                  min="0"
-                  required
-                />
-              </label>
-              <label>
-                <span>Padding</span>
-                <input
-                  type="number"
-                  name="padding"
-                  value="2"
-                  min="0"
-                  required
-                />
-              </label>
-              <label>
-                <span>Color</span>
-                <input
-                  type="color"
-                  name="background"
-                  value="#ffffff"
-                  required
-                />
-              </label>
-              <label>
-                <span>Opacity</span>
-                <input
-                  type="range"
-                  name="backgroundOpacity"
-                  min="0"
-                  max="1"
-                  step="0.1"
-                  value="1"
-                  required
-                />
-              </label>
+        <section>
+          <p>
+            I created this tool as a basis for my data visualization work, but
+            it can also be used for artistic illustrations.
+          </p>
+          <p>
+            Sometimes, we just want to represent a big number as dots on the
+            screen. In that case, it’s important that all dots are visible. That
+            is why this tool prevents circles from overlapping by default.
+          </p>
+          <p>
+            But what if we want to highlight some of those dots? Well… you set
+            an amount of circles to be highlighted, with custom colors and
+            sizes.
+          </p>
+          <p>
+            For instance, if you want to represent that 10% of something. Simply
+            set the amount of dots as 100 and the amount of highlights as 10.
+            You should get results like this:
+          </p>
+          <figure>
+            <div class="Sample"></div>
+            <figcaption>
+              Animated and colorful graphic displays 100 circles, 10 of which
+              are highlighted.
+            </figcaption>
+          </figure>
+          <p>
+            You can download your creation as a vector (SVG) and further edit it
+            using <a href="#">Figma</a> or <a href="#">Adobe Illustrator</a>. If
+            you prefer, you can also download it as raster (PNG) file.
+          </p>
+        </section>
+        <section>
+          <h2>Play with it</h2>
+          <div id="controls">
+            <form>
               <fieldset>
-                <legend>Shape</legend>
+                <legend>Canvas</legend>
                 <div class="label-container">
                   <label>
+                    <span>Width</span>
                     <input
-                      type="radio"
-                      name="shape"
-                      value="rectangle"
-                      checked
+                      type="number"
+                      name="width"
+                      value="640"
+                      min="0"
+                      required
                     />
-                    <span>Rectangle</span>
                   </label>
                   <label>
-                    <input type="radio" name="shape" value="circle" />
-                    <span>Circle</span>
+                    <span>Height</span>
+                    <input
+                      type="number"
+                      name="height"
+                      value="360"
+                      min="0"
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Padding</span>
+                    <input
+                      type="number"
+                      name="padding"
+                      value="24"
+                      min="0"
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Color</span>
+                    <input
+                      type="color"
+                      name="background"
+                      value="#ffffff"
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Opacity</span>
+                    <input
+                      type="range"
+                      name="backgroundOpacity"
+                      min="0"
+                      max="1"
+                      step="0.1"
+                      value="1"
+                      required
+                    />
+                  </label>
+                  <fieldset>
+                    <legend>Shape</legend>
+                    <div class="label-container">
+                      <label>
+                        <input
+                          type="radio"
+                          name="shape"
+                          value="rectangle"
+                          checked
+                        />
+                        <span>Rectangle</span>
+                      </label>
+                      <label>
+                        <input type="radio" name="shape" value="circle" />
+                        <span>Circle</span>
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Dots</legend>
+                <div class="label-container">
+                  <label>
+                    <span>Amount</span>
+                    <input
+                      type="number"
+                      name="amount"
+                      value="1000"
+                      min="1"
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Radius</span>
+                    <input
+                      type="number"
+                      name="radius"
+                      value="4"
+                      min="0"
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Margin</span>
+                    <input
+                      type="number"
+                      name="margin"
+                      value="2"
+                      min="0"
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Color</span>
+                    <input
+                      type="color"
+                      name="foreground"
+                      value="#dddddd"
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Opacity</span>
+                    <input
+                      type="range"
+                      name="foregroundOpacity"
+                      min="0"
+                      max="1"
+                      step="0.1"
+                      value="1"
+                      required
+                    />
+                  </label>
+                  <label>
+                    <input type="checkbox" name="preventOverlap" checked />
+                    <span>Prevent overlap</span>
                   </label>
                 </div>
               </fieldset>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Dots</legend>
-            <div class="label-container">
-              <label>
-                <span>Amount</span>
-                <input
-                  type="number"
-                  name="amount"
-                  value="1000"
-                  min="1"
-                  required
-                />
-              </label>
-              <label>
-                <span>Radius</span>
-                <input type="number" name="radius" value="2" min="0" required />
-              </label>
-              <label>
-                <span>Margin</span>
-                <input type="number" name="margin" value="2" min="0" required />
-              </label>
-              <label>
-                <span>Color</span>
-                <input
-                  type="color"
-                  name="foreground"
-                  value="#000000"
-                  required
-                />
-              </label>
-              <label>
-                <span>Opacity</span>
-                <input
-                  type="range"
-                  name="foregroundOpacity"
-                  min="0"
-                  max="1"
-                  step="0.1"
-                  value="1"
-                  required
-                />
-              </label>
-              <label>
-                <input type="checkbox" name="preventOverlap" checked />
-                <span>Prevent overlap</span>
-              </label>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Highlights</legend>
-            <div class="label-container">
-              <label>
-                <span>Amount</span>
-                <input
-                  type="number"
-                  name="highlightAmount"
-                  value="10"
-                  min="0"
-                  required
-                />
-              </label>
-              <label>
-                <span>Radius</span>
-                <input
-                  type="number"
-                  name="highlightRadius"
-                  value="2"
-                  min="0"
-                  required
-                />
-              </label>
-              <label>
-                <span>Color</span>
-                <input
-                  type="color"
-                  name="highlightForeground"
-                  value="#FF0000"
-                  required
-                />
-              </label>
-              <label>
-                <span>Opacity</span>
-                <input
-                  type="range"
-                  name="highlightForegroundOpacity"
-                  min="0"
-                  max="1"
-                  step="0.1"
-                  value="1"
-                  required
-                />
-              </label>
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Renderer</legend>
-            <div class="label-container">
-              <label>
-                <input type="radio" name="renderer" value="svg" checked />
-                <span>SVG</span>
-              </label>
-              <label>
-                <input type="radio" name="renderer" value="canvas" />
-                <span>PNG</span>
-              </label>
-            </div>
-          </fieldset>
-        </form>
-      </div>
+              <fieldset>
+                <legend>Highlights</legend>
+                <div class="label-container">
+                  <label>
+                    <span>Amount</span>
+                    <input
+                      type="number"
+                      name="highlightAmount"
+                      value="10"
+                      min="0"
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Radius</span>
+                    <input
+                      type="number"
+                      name="highlightRadius"
+                      value="6"
+                      min="0"
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Color</span>
+                    <input
+                      type="color"
+                      name="highlightForeground"
+                      value="#0000FF"
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Opacity</span>
+                    <input
+                      type="range"
+                      name="highlightForegroundOpacity"
+                      min="0"
+                      max="1"
+                      step="0.1"
+                      value="1"
+                      required
+                    />
+                  </label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Renderer</legend>
+                <div class="label-container">
+                  <label>
+                    <input type="radio" name="renderer" value="svg" checked />
+                    <span>SVG</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="renderer" value="canvas" />
+                    <span>PNG</span>
+                  </label>
+                </div>
+              </fieldset>
+            </form>
+          </div>
 
-      <div id="canvas">
-        <div class="Dots"></div>
-        <p class="error"></p>
-        <button class="variant">Create Variant</button>
-        <button class="download">Download</button>
-      </div>
+          <div id="canvas">
+            <div class="Dots"></div>
+            <p class="error"></p>
+            <button class="variant">Create Variant</button>
+            <button class="download">Download</button>
+          </div>
+        </section>
+      </main>
+
+      <aside>
+        <h2>What can I do with it?</h2>
+
+        <ul>
+          <li>
+            <figure>
+              <img src="https://via.placeholder.com/240" />
+              <figcaption>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                <p class="author">By <a href="#">Vinicius Sueiro</a></p>
+              </figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="https://via.placeholder.com/240" />
+              <figcaption>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                <p class="author">By <a href="#">Lorem Ipsum</a></p>
+                <small>
+                  <em>Not</em> created using this tool. Showcased only for
+                  inspiration.
+                </small>
+              </figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <img src="https://via.placeholder.com/240" />
+              <figcaption>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                <p class="author">By <a href="#">Lorem Ipsum</a></p>
+              </figcaption>
+            </figure>
+          </li>
+        </ul>
+
+        <h3>Share your work</h3>
+
+        <p>
+          Have you used this tool to create something cool?
+          <a href="#">Send it to me</a> so your project can be showcased here!
+        </p>
+      </aside>
+
+      <footer>
+        <p>
+          The Random Dots Generator was created by
+          <a href="https://vsueiro.com">Vinicius Sueiro</a> as a side project.
+        </p>
+        <p>
+          It is open source and available on
+          <a href="https://github.com/vsueiro/random-dots-generator">GitHub</a>.
+          Feel free to collaborate :)
+        </p>
+      </footer>
     </div>
 
     <script src="script/Dots.js"></script>
