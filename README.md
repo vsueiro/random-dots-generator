@@ -8,8 +8,8 @@ The tool has a limit of a 1000 tries. If it is not able to place a new dot, it w
 
 This algorithm is very naive. If you have suggestions on improving it, feel free to collaborate with this repository! For example, a better approach might be to find the most “open” spot and try to place a dot there. If it’s not possible, it could nudge existing dots a little bit to make room for the new one.
 
-If you want to use it for more custom projects, use `Dots.js` file. It constains a class that you can initialize with a few options (like the size and amount of dots you want). By creating many instances of the `Dots` class, you can create more complex graphics – or beautiful artworks :).
+If you want to use it for more custom projects, use `Dots.js` file. It contains a JavaScript class that you can initialize with a few options (like the size and amount of dots you want). By creating many instances of the `Dots` class, you can create more complex graphics – or beautiful artworks! ✨
 
-Play with the tool here:
+Play with it here:
 
 [https://vsueiro.com/random-dots-generator/]()
