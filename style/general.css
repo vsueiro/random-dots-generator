@@ -171,6 +171,12 @@ footer {
   margin-left: 8px;
 }
 
+/* Tool */
+
+#mobile-warning {
+  display: none;
+}
+
 #playground {
   display: flex;
   width: calc(100% - 48px);

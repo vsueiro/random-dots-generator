@@ -1,0 +1,26 @@
+@media (max-width: 960px) {
+  section:has(#playground) h2 {
+    display: none;
+  }
+  #playground {
+    height: 50vh;
+    background: Lavender;
+    color: Indigo;
+  }
+  #mobile-warning {
+    width: 100%;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  #mobile-warning .feather {
+    color: Tomato;
+  }
+  #playground #controls,
+  #playground #canvas {
+    display: none;
+  }
+}
