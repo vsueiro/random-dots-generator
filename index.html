@@ -15,8 +15,10 @@
     <div id="app">
       <main>
         <header class="contain">
-          <!-- Animated and colorful graphic displays 100 circles, 10 of which are highlighted -->
-          <div class="Sample"></div>
+          <div
+            class="Sample"
+            title="Animated and colorful graphic displays 100 circles, 10 of which are highlighted"
+          ></div>
 
           <h1>Random Dots <span>Generator</span></h1>
           <p class="lead">
@@ -28,8 +30,9 @@
         <div class="contain">
           <p>
             Sometimes, we just want to represent a big number as dots on the
-            screen. In that case, it’s important that all dots are visible. That
-            is why this tool prevents circles from overlapping by default.
+            screen. In that case, it’s important that all dots are visible.
+            That’s is why this tool prevents circles from overlapping by
+            default.
           </p>
           <p>
             But what if we want to highlight some of those dots? Well… you can
@@ -44,9 +47,10 @@
             </span>
           </p>
           <p>
-            You can download your creation as a vector (SVG) and further edit it
-            using <a href="#">Figma</a> or <a href="#">Adobe Illustrator</a>. If
-            you prefer, you can also download it as raster (PNG) file.
+            You can download your creation as a vector (SVG) file and further
+            edit it using <a href="#">Figma</a> or
+            <a href="#">Adobe Illustrator</a>. If you prefer, you can also
+            download it as raster (PNG) file.
           </p>
           <p>
             I created this tool as a basis for my data visualization work, but
@@ -59,45 +63,17 @@
           </p>
         </div>
 
-        <style>
-          .sticky-container {
-            position: relative;
-            width: calc(100% - 96px);
-            max-width: 1280px;
-            margin: 48px auto;
-            background: RebeccaPurple;
-          }
-          .sticky-element {
-            position: -webkit-sticky;
-            position: sticky;
-            height: 800px;
-            /* height: 90vh; */
-            background: Indigo;
-            color: GhostWhite;
-            width: 304px;
-            top: 0;
-            z-index: 1;
-          }
-          .scrolling-content {
-            position: relative;
-            /* margin-top: -90vh; */
-            margin-top: -800px;
-            top: 0;
-            left: 304px;
-            background: Lavender;
-            width: calc(100% - 304px);
-            /* min-height: 90vh; */
-            min-height: 800px;
-            height: fit-content;
-            overflow-x: auto;
-            padding: 48px;
-          }
-        </style>
+        <section id="playground">
+          <h2>Playground</h2>
 
-        <section>
-          <h2>Play with it</h2>
-
-          <div class="sticky-container">
+          <div id="tool" class="sticky-container">
+            <div id="mobile-warning">
+              <p><i data-feather="alert-triangle"></i></p>
+              <p>
+                Sorry! This tool ony works on bigger screens, like laptops or
+                tablets
+              </p>
+            </div>
             <div class="sticky-element">
               <div id="controls">
                 <form>
@@ -324,36 +300,11 @@
                   </fieldset>
                 </form>
               </div>
-            </div>
-            <div class="scrolling-content">
-              <!-- <div class="scroll-container"> -->
-              <!-- <div class="scroll-item"> -->
-              <div class="Dots"></div>
-              <!-- </div> -->
-              <!-- </div> -->
-            </div>
-          </div>
-
-          <br /><br /><br /><br /><br /><br />
-
-          <div id="playground">
-            <div id="mobile-warning">
-              <p><i data-feather="alert-triangle"></i></p>
-              <p>
-                Sorry! This tool ony works on bigger screens, like laptops or
-                tablets
-              </p>
-            </div>
-
-            <div id="canvas">
-              <div class="top-container">
+              <div id="bar-top">
                 <p class="error">
                   <i data-feather="alert-triangle"></i>
                   <span class="error-message"></span>
                 </p>
-              </div>
-
-              <div class="bottom-container">
                 <div class="buttons">
                   <button class="variant secondary">
                     <i data-feather="refresh-cw"></i>
@@ -366,21 +317,24 @@
                 </div>
               </div>
             </div>
+            <div class="scrolling-content">
+              <div class="Dots"></div>
+            </div>
           </div>
         </section>
       </main>
 
       <aside>
         <div class="contain">
-          <h2>What can I do with it?</h2>
-          <p class="lead">Get inspired by these real-world use cases</p>
+          <h2>Use Cases</h2>
+          <p class="lead">Get inspired by a few real-world examples</p>
         </div>
 
         <div class="ul-wrapper contain">
           <ul>
             <li>
               <figure>
-                <a href="https://youtu.be/PWmy2KlGlrc">
+                <a href="https://youtu.be/PWmy2KlGlrc" target="_blank">
                   <img src="samples/ufscar.gif" />
                 </a>
                 <figcaption>
@@ -388,7 +342,8 @@
                     Slides from my talk about data visualization at Festival
                     Comunicação Científica, organized by Meio de Cultura UFSCar.
                     <span class="author"
-                      >By <a href="#">Vinicius Sueiro</a></span
+                      >By
+                      <a href="https://vsueiro.com/">Vinicius Sueiro</a></span
                     >
                   </p>
                 </figcaption>
@@ -398,6 +353,7 @@
               <figure>
                 <a
                   href="https://www.behance.net/gallery/99114047/Population-Density"
+                  target="_blank"
                 >
                   <img src="samples/population.jpg" />
                 </a>
@@ -407,11 +363,15 @@
                     cultural supplement of Corriere Della Sera.
                     <span class="author">
                       By
-                      <a href="https://www.behance.net/FedericaFragapane"
+                      <a
+                        href="https://www.behance.net/FedericaFragapane"
+                        target="_blank"
                         >Federica Fragapane</a
                       >
                       and
-                      <a href="https://twitter.com/paolocorti_">Paolo Corti</a>
+                      <a href="https://twitter.com/paolocorti_" target="_blank"
+                        >Paolo Corti</a
+                      >
                     </span>
                   </p>
                   <small>
@@ -452,7 +412,10 @@
           The Random Dots Generator is an open-source tool created by
           <a href="https://vsueiro.com">Vinicius Sueiro</a> as a side project.
         </p>
-        <a href="https://github.com/vsueiro/random-dots-generator">
+        <a
+          href="https://github.com/vsueiro/random-dots-generator"
+          target="_blank"
+        >
           <i data-feather="github"></i>
           <span class="screen-reader-only">GitHub</span>
         </a>

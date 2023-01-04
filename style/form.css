@@ -29,6 +29,10 @@ button:hover {
   outline: none;
 }
 
+button span {
+  white-space: nowrap;
+}
+
 button:active {
   transform: translate(0, 2px);
   opacity: 0.75;
@@ -64,10 +68,11 @@ button.secondary:hover {
 
 .buttons {
   display: flex;
+  gap: 8px;
 }
 
 .buttons button {
-  margin: 16px 4px;
+  margin: 0;
 }
 
 /* Fieldset */
