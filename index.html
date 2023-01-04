@@ -70,7 +70,8 @@
           .sticky-element {
             position: -webkit-sticky;
             position: sticky;
-            height: 50vh;
+            height: 800px;
+            /* height: 90vh; */
             background: Indigo;
             color: GhostWhite;
             width: 304px;
@@ -79,22 +80,262 @@
           }
           .scrolling-content {
             position: relative;
-            margin-top: -50vh;
+            /* margin-top: -90vh; */
+            margin-top: -800px;
             top: 0;
             left: 304px;
             background: Lavender;
             width: calc(100% - 304px);
-            min-height: 1000px;
+            /* min-height: 90vh; */
+            min-height: 800px;
+            height: fit-content;
+            overflow-x: auto;
+            padding: 48px;
           }
         </style>
 
-        <div class="sticky-container">
-          <div class="sticky-element">HEADER</div>
-          <div class="scrolling-content">MAIN CONTENT</div>
-        </div>
-
         <section>
           <h2>Play with it</h2>
+
+          <div class="sticky-container">
+            <div class="sticky-element">
+              <div id="controls">
+                <form>
+                  <fieldset>
+                    <legend>Canvas</legend>
+                    <div class="label-container">
+                      <label>
+                        <span>Width</span>
+                        <input
+                          type="number"
+                          name="width"
+                          value="640"
+                          min="0"
+                          required
+                        />
+                      </label>
+                      <label>
+                        <span>Height</span>
+                        <input
+                          type="number"
+                          name="height"
+                          value="360"
+                          min="0"
+                          required
+                        />
+                      </label>
+                      <label>
+                        <span>Padding</span>
+                        <input
+                          type="number"
+                          name="padding"
+                          value="24"
+                          min="0"
+                          required
+                        />
+                      </label>
+                      <label>
+                        <span>Color</span>
+                        <input
+                          type="color"
+                          name="background"
+                          value="#F8F8FF"
+                          required
+                        />
+                        <div
+                          class="color-picker"
+                          style="background: #f8f8ff"
+                        ></div>
+                      </label>
+                      <label>
+                        <span>Opacity</span>
+                        <input
+                          type="range"
+                          name="backgroundOpacity"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value="1"
+                          required
+                        />
+                      </label>
+                      <fieldset class="screen-reader-only">
+                        <legend>Shape</legend>
+                        <div class="label-container">
+                          <div class="toggle">
+                            <label>
+                              <input
+                                type="radio"
+                                name="shape"
+                                value="rectangle"
+                                checked
+                              />
+                              <span>
+                                <i data-feather="square"></i>
+                                <span>Rectangle</span>
+                              </span>
+                            </label>
+                            <label>
+                              <input type="radio" name="shape" value="circle" />
+                              <span>
+                                <i data-feather="circle"></i>
+                                <span>Circle</span>
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+                  </fieldset>
+                  <fieldset>
+                    <legend>Dots</legend>
+                    <div class="label-container">
+                      <label>
+                        <span>Amount</span>
+                        <input
+                          type="number"
+                          name="amount"
+                          value="1000"
+                          min="1"
+                          required
+                        />
+                      </label>
+                      <label>
+                        <span>Radius</span>
+                        <input
+                          type="number"
+                          name="radius"
+                          value="4"
+                          min="0"
+                          required
+                        />
+                      </label>
+                      <label>
+                        <span>Margin</span>
+                        <input
+                          type="number"
+                          name="margin"
+                          value="2"
+                          min="0"
+                          required
+                        />
+                      </label>
+                      <label>
+                        <span>Color</span>
+                        <input
+                          type="color"
+                          name="foreground"
+                          value="#B0E0E6"
+                          required
+                        />
+                        <div
+                          class="color-picker"
+                          style="background: #b0e0e6"
+                        ></div>
+                      </label>
+                      <label>
+                        <span>Opacity</span>
+                        <input
+                          type="range"
+                          name="foregroundOpacity"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value="1"
+                          required
+                        />
+                      </label>
+                      <label>
+                        <span>Overlaps</span>
+                        <input type="checkbox" name="overlap" />
+                        <div class="switch"></div>
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset>
+                    <legend>Highlights</legend>
+                    <div class="label-container">
+                      <label>
+                        <span>Amount</span>
+                        <input
+                          type="number"
+                          name="highlightAmount"
+                          value="10"
+                          min="0"
+                          required
+                        />
+                      </label>
+                      <label>
+                        <span>Radius</span>
+                        <input
+                          type="number"
+                          name="highlightRadius"
+                          value="6"
+                          min="0"
+                          required
+                        />
+                      </label>
+                      <label>
+                        <span>Color</span>
+                        <input
+                          type="color"
+                          name="highlightForeground"
+                          value="#FF1493"
+                          required
+                        />
+                        <div
+                          class="color-picker"
+                          style="background: #ff1493"
+                        ></div>
+                      </label>
+                      <label>
+                        <span>Opacity</span>
+                        <input
+                          type="range"
+                          name="highlightForegroundOpacity"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          value="1"
+                          required
+                        />
+                      </label>
+                    </div>
+                  </fieldset>
+                  <fieldset>
+                    <legend>Renderer</legend>
+                    <div class="label-container">
+                      <div class="toggle">
+                        <label>
+                          <input
+                            type="radio"
+                            name="renderer"
+                            value="svg"
+                            checked
+                          />
+                          <span>SVG</span>
+                        </label>
+                        <label>
+                          <input type="radio" name="renderer" value="canvas" />
+                          <span>PNG</span>
+                        </label>
+                      </div>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+            <div class="scrolling-content">
+              <!-- <div class="scroll-container"> -->
+              <!-- <div class="scroll-item"> -->
+              <div class="Dots"></div>
+              <!-- </div> -->
+              <!-- </div> -->
+            </div>
+          </div>
+
+          <br /><br /><br /><br /><br /><br />
+
           <div id="playground">
             <div id="mobile-warning">
               <p><i data-feather="alert-triangle"></i></p>
@@ -103,231 +344,7 @@
                 tablets
               </p>
             </div>
-            <div id="controls">
-              <form>
-                <fieldset>
-                  <legend>Canvas</legend>
-                  <div class="label-container">
-                    <label>
-                      <span>Width</span>
-                      <input
-                        type="number"
-                        name="width"
-                        value="640"
-                        min="0"
-                        required
-                      />
-                    </label>
-                    <label>
-                      <span>Height</span>
-                      <input
-                        type="number"
-                        name="height"
-                        value="360"
-                        min="0"
-                        required
-                      />
-                    </label>
-                    <label>
-                      <span>Padding</span>
-                      <input
-                        type="number"
-                        name="padding"
-                        value="24"
-                        min="0"
-                        required
-                      />
-                    </label>
-                    <label>
-                      <span>Color</span>
-                      <input
-                        type="color"
-                        name="background"
-                        value="#F8F8FF"
-                        required
-                      />
-                      <div
-                        class="color-picker"
-                        style="background: #f8f8ff"
-                      ></div>
-                    </label>
-                    <label>
-                      <span>Opacity</span>
-                      <input
-                        type="range"
-                        name="backgroundOpacity"
-                        min="0"
-                        max="1"
-                        step="0.1"
-                        value="1"
-                        required
-                      />
-                    </label>
-                    <fieldset class="screen-reader-only">
-                      <legend>Shape</legend>
-                      <div class="label-container">
-                        <div class="toggle">
-                          <label>
-                            <input
-                              type="radio"
-                              name="shape"
-                              value="rectangle"
-                              checked
-                            />
-                            <span>
-                              <i data-feather="square"></i>
-                              <span>Rectangle</span>
-                            </span>
-                          </label>
-                          <label>
-                            <input type="radio" name="shape" value="circle" />
-                            <span>
-                              <i data-feather="circle"></i>
-                              <span>Circle</span>
-                            </span>
-                          </label>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </div>
-                </fieldset>
-                <fieldset>
-                  <legend>Dots</legend>
-                  <div class="label-container">
-                    <label>
-                      <span>Amount</span>
-                      <input
-                        type="number"
-                        name="amount"
-                        value="1000"
-                        min="1"
-                        required
-                      />
-                    </label>
-                    <label>
-                      <span>Radius</span>
-                      <input
-                        type="number"
-                        name="radius"
-                        value="4"
-                        min="0"
-                        required
-                      />
-                    </label>
-                    <label>
-                      <span>Margin</span>
-                      <input
-                        type="number"
-                        name="margin"
-                        value="2"
-                        min="0"
-                        required
-                      />
-                    </label>
-                    <label>
-                      <span>Color</span>
-                      <input
-                        type="color"
-                        name="foreground"
-                        value="#B0E0E6"
-                        required
-                      />
-                      <div
-                        class="color-picker"
-                        style="background: #b0e0e6"
-                      ></div>
-                    </label>
-                    <label>
-                      <span>Opacity</span>
-                      <input
-                        type="range"
-                        name="foregroundOpacity"
-                        min="0"
-                        max="1"
-                        step="0.1"
-                        value="1"
-                        required
-                      />
-                    </label>
-                    <label>
-                      <span>Overlaps</span>
-                      <input type="checkbox" name="overlap" />
-                      <div class="switch"></div>
-                    </label>
-                  </div>
-                </fieldset>
-                <fieldset>
-                  <legend>Highlights</legend>
-                  <div class="label-container">
-                    <label>
-                      <span>Amount</span>
-                      <input
-                        type="number"
-                        name="highlightAmount"
-                        value="10"
-                        min="0"
-                        required
-                      />
-                    </label>
-                    <label>
-                      <span>Radius</span>
-                      <input
-                        type="number"
-                        name="highlightRadius"
-                        value="6"
-                        min="0"
-                        required
-                      />
-                    </label>
-                    <label>
-                      <span>Color</span>
-                      <input
-                        type="color"
-                        name="highlightForeground"
-                        value="#FF1493"
-                        required
-                      />
-                      <div
-                        class="color-picker"
-                        style="background: #ff1493"
-                      ></div>
-                    </label>
-                    <label>
-                      <span>Opacity</span>
-                      <input
-                        type="range"
-                        name="highlightForegroundOpacity"
-                        min="0"
-                        max="1"
-                        step="0.1"
-                        value="1"
-                        required
-                      />
-                    </label>
-                  </div>
-                </fieldset>
-                <fieldset>
-                  <legend>Renderer</legend>
-                  <div class="label-container">
-                    <div class="toggle">
-                      <label>
-                        <input
-                          type="radio"
-                          name="renderer"
-                          value="svg"
-                          checked
-                        />
-                        <span>SVG</span>
-                      </label>
-                      <label>
-                        <input type="radio" name="renderer" value="canvas" />
-                        <span>PNG</span>
-                      </label>
-                    </div>
-                  </div>
-                </fieldset>
-              </form>
-            </div>
+
             <div id="canvas">
               <div class="top-container">
                 <p class="error">
@@ -335,11 +352,7 @@
                   <span class="error-message"></span>
                 </p>
               </div>
-              <div class="scroll-container">
-                <div class="scroll-item">
-                  <div class="Dots"></div>
-                </div>
-              </div>
+
               <div class="bottom-container">
                 <div class="buttons">
                   <button class="variant secondary">

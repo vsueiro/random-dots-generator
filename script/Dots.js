@@ -81,7 +81,7 @@ class Dots {
   constructor(element, options) {
     this.element = element;
 
-    // Define list of possible options
+    // Define list of possible options and default values
     this.possibilities = {
       renderer: "svg",
       width: 640,
@@ -153,6 +153,9 @@ class Dots {
       // Make both sides the same
       width = height;
     }
+
+    // Force resize element to avoid width limit of container
+    element.style.width = `${width}px`;
 
     // <svg>
     if (this.renderer === "svg") {

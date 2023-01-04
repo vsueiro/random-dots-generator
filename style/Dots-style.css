@@ -2,7 +2,7 @@
 
 .Dots {
   position: relative;
-  margin: 8px;
+  margin: 0 auto;
   box-shadow: 0 0 0 2px transparent;
   transition: box-shadow 0.4s;
   border-radius: 4px;
