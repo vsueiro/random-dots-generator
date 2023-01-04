@@ -1,4 +1,24 @@
-@media (max-width: 960px) {
+@media (max-width: 1279px) {
+  .sticky-container {
+    width: calc(100% - 48px);
+  }
+}
+
+@media (max-width: 1199px) {
+  .sticky-container {
+    width: calc(100% - 32px);
+  }
+
+  .error-message span {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .sticky-container {
+    width: calc(100% - 96px);
+  }
+
   #playground h2 {
     display: none;
   }

@@ -57,13 +57,15 @@ function showCount() {
   const message = document.querySelector(".error-message");
 
   if (dots.count < dots.amount) {
-    message.textContent = `
+    message.innerHTML = `
       Too many dots to prevent overlap.
-      Only ${dots.count} created.
+      <span>
+        Only ${dots.count} created.
+      </span>
     `;
     error.style.visibility = "visible";
   } else {
-    message.textContent = ``;
+    message.innerHTML = ``;
     error.style.visibility = "hidden";
   }
 }
