@@ -95,7 +95,7 @@ class Dots {
       margin: 2,
       foreground: "#B0E0E6",
       foregroundOpacity: 1,
-      preventOverlap: true,
+      overlap: false,
       highlightAmount: 0,
       highlightRadius: 4,
       highlightForeground: "#FF1493",
@@ -119,7 +119,7 @@ class Dots {
     // For each possible option
     for (const [possibility, defaultValue] of possibilities) {
       // If custom option was passed
-      if (possibility in options) {
+      if (options.hasOwnProperty(possibility)) {
         // Use custom option
         this[possibility] = options[possibility];
       }
@@ -292,7 +292,7 @@ class Dots {
       let dot = new Dot(this);
 
       // If frame is a circle AND overlaps are not allowed
-      if (this.shape === "circle" && this.preventOverlap) {
+      if (this.shape === "circle" && !this.overlap) {
         // Count number of tries
         let tries = 0;
 
@@ -317,7 +317,7 @@ class Dots {
         }
 
         // If overlaps are not allowed
-        if (this.preventOverlap) {
+        if (!this.overlap) {
           // Count number of tries
           let tries = 0;
 

@@ -23,7 +23,7 @@ function getOptions(form) {
     "highlightRadius",
     "highlightForegroundOpacity",
   ];
-  const Booleans = ["preventOverlap"];
+  const Booleans = ["overlap"];
 
   // For each value in the form
   for (let key in options) {

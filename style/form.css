@@ -110,7 +110,7 @@ input[type="number"] {
 }
 
 input[type="number"]:focus {
-  outline: 2px solid DeepPink;
+  outline: 2px solid Turquoise;
 }
 
 input:invalid,
@@ -148,8 +148,11 @@ input[type="number"]:read-only {
   min-width: initial;
 }
 
-.toggle input[type="radio"] {
-  display: none;
+.toggle:has(input[type="radio"]:focus) {
+  /* position: relative; */
+  outline: 2px solid Turquoise;
+  /* box-shadow: inset 0 0 0 2px Turquoise; */
+  /* z-index: 1; */
 }
 
 .toggle input + span {
@@ -169,10 +172,6 @@ input[type="number"]:read-only {
 
 /* Color */
 
-input[type="color"] {
-  display: none;
-}
-
 input[type="color"] + .color-picker {
   display: inline-flex;
   width: 64px;
@@ -180,6 +179,10 @@ input[type="color"] + .color-picker {
   border: 2px solid Lavender;
   background: Red;
   border-radius: 4px;
+}
+
+input[type="color"]:focus + .color-picker {
+  outline: 2px solid Turquoise;
 }
 
 /* Input Range */
@@ -223,12 +226,59 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 50%;
 }
 
+input[type="range"]:focus {
+  outline: none;
+}
+
 input[type="range"]:focus::-webkit-slider-thumb {
-  outline: 2px solid DeepPink;
+  outline: 2px solid Turquoise;
   outline-offset: 2px;
 }
 
 input[type="range"]:focus::-moz-range-thumb {
-  outline: 2px solid DeepPink;
+  outline: 2px solid Turquoise;
   outline-offset: 2px;
+}
+
+/* Checkbox */
+
+input[type="checkbox"] {
+  /* display: none; */
+}
+
+input[type="checkbox"]:focus + .switch {
+  outline: 2px solid Turquoise;
+}
+
+input[type="checkbox"] + .switch {
+  display: flex;
+  height: calc(24px + 4px);
+  width: calc(48px + 4px);
+  background: RebeccaPurple;
+  border: 2px solid RebeccaPurple;
+  border-radius: 999px;
+  margin-right: 8px;
+  transition: border-color 0.4s, background-color 0.4s;
+  cursor: pointer;
+}
+
+input[type="checkbox"] + .switch::before {
+  content: "";
+  display: flex;
+  width: calc(24px - 4px);
+  height: calc(24px - 4px);
+  background: GhostWhite;
+  border-radius: 50%;
+  border: 2px solid RebeccaPurple;
+  transition: border-color 0.4s, background-color 0.4s, transform 0.4s;
+}
+
+input[type="checkbox"]:checked + .switch {
+  background: DeepPink;
+  border-color: DeepPink;
+}
+
+input[type="checkbox"]:checked + .switch::before {
+  transform: translateX(100%);
+  border-color: DeepPink;
 }
