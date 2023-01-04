@@ -81,6 +81,8 @@ label {
   white-space: nowrap;
   margin: 2px 0 2px 32px;
   user-select: none;
+  display: flex;
+  align-items: center;
 }
 
 label span {
@@ -163,4 +165,70 @@ input[type="number"]:read-only {
 
 .toggle input:checked + span {
   background: DeepPink;
+}
+
+/* Color */
+
+input[type="color"] {
+  display: none;
+}
+
+input[type="color"] + .color-picker {
+  display: inline-flex;
+  width: 64px;
+  height: 24px;
+  border: 2px solid Lavender;
+  background: Red;
+  border-radius: 4px;
+}
+
+/* Input Range */
+
+input[type="range"] {
+  width: 160px;
+  height: 28px;
+  border-radius: 4px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: RebeccaPurple;
+  border-radius: 2px;
+  height: 4px;
+}
+
+input[type="range"]::-moz-range-track {
+  background-color: RebeccaPurple;
+  border-radius: 2px;
+  height: 4px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -6px; /* Centers thumb on the track */
+  background-color: DeepPink;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: none; /*Removes extra border that FF applies*/
+  border-radius: 0; /*Removes default border-radius that FF applies*/
+
+  margin-top: -6px; /* Centers thumb on the track */
+  background-color: DeepPink;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  outline: 2px solid DeepPink;
+  outline-offset: 2px;
+}
+
+input[type="range"]:focus::-moz-range-thumb {
+  outline: 2px solid DeepPink;
+  outline-offset: 2px;
 }

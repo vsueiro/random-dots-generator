@@ -226,3 +226,19 @@ variantButton.addEventListener("click", () => {
 
 // Show icons
 feather.replace();
+
+// Upate color picker value
+(function () {
+  let colorInputs = document.querySelectorAll('input[type="color"]');
+
+  function updateColorPicker(event) {
+    let colorInput = event.target;
+    let colorPicker = colorInput.nextElementSibling;
+
+    colorPicker.style.backgroundColor = colorInput.value;
+  }
+
+  for (let colorInput of colorInputs) {
+    colorInput.addEventListener("input", updateColorPicker);
+  }
+})();

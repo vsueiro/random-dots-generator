@@ -14,3 +14,17 @@ svg {
   max-width: 100%;
   display: block;
 }
+
+/* Input Range */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}

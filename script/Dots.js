@@ -93,7 +93,7 @@ class Dots {
       amount: 1000,
       radius: 4,
       margin: 2,
-      foreground: "#E6E6FA",
+      foreground: "#B0E0E6",
       foregroundOpacity: 1,
       preventOverlap: true,
       highlightAmount: 0,
