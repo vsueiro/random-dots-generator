@@ -43,6 +43,7 @@ header .Sample {
 h1,
 h2,
 h3 {
+  text-align: center;
   line-height: 1;
   margin: 32px 0 16px 0;
 }
