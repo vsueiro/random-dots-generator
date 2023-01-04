@@ -169,14 +169,14 @@ variantButton.addEventListener("click", () => {
 
   const element = document.querySelector(".Sample");
   const options = {
-    width: 240 / 2,
-    height: 240 / 2,
-    padding: 24 / 2,
+    width: 120,
+    height: 120,
+    padding: 12,
     amount: 100,
-    radius: 4 / 2,
-    margin: 4 / 2,
-    highlightAmount: 10 / 2,
-    highlightRadius: 6 / 2,
+    radius: 2,
+    margin: 1.5,
+    highlightAmount: 10,
+    highlightRadius: 3,
   };
 
   // Get random item from array AND exclude it from the array
@@ -229,7 +229,7 @@ variantButton.addEventListener("click", () => {
   randomize();
 
   // Call randomize function every 1 second
-  setInterval(randomize, 500);
+  setInterval(randomize, 200);
 })();
 
 // Show icons
