@@ -52,15 +52,19 @@ const dots = new Dots(element, options);
 
 // Update count
 function showCount() {
-  const error = document.querySelector(".error-message");
+  // Hides error via JS because Firefox doesn’t like :has selector
+  const error = document.querySelector(".error");
+  const message = document.querySelector(".error-message");
 
   if (dots.count < dots.amount) {
-    error.textContent = `
+    message.textContent = `
       Too many dots to prevent overlap.
       Only ${dots.count} created.
     `;
+    error.style.visibility = "visible";
   } else {
-    error.textContent = ``;
+    message.textContent = ``;
+    error.style.visibility = "hidden";
   }
 }
 
