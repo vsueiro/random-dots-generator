@@ -114,20 +114,30 @@ fieldset.screen-reader-only {
 /* Use cases */
 
 aside {
-  padding: 32px 16px;
+  padding: 32px 0;
   background: GhostWhite;
   color: Indigo;
 }
 
+aside .ul-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
 aside ul {
   display: flex;
-  margin: 48px 0;
+  /* background: pink; */
+  width: fit-content;
+  margin: 48px auto;
 }
 
 aside ul li {
-  width: 360px;
+  width: 33.333vw;
+  max-width: 360px;
+  min-width: 288px;
   margin: 8px;
   font-size: 16px;
+  flex-shrink: 0;
 }
 
 aside ul img {
