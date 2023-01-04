@@ -1,7 +1,6 @@
 /* Essential */
 
 .Dots {
-  width: fit-content;
   height: fit-content;
   resize: both;
   overflow: hidden;
