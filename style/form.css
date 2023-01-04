@@ -26,8 +26,7 @@ button {
 
 button:focus,
 button:hover {
-  background: DeepPink;
-  color: GhostWhite;
+  outline: none;
 }
 
 button:active {
@@ -40,12 +39,35 @@ button {
   align-items: center;
 }
 
+button.primary {
+  box-shadow: none;
+  background: DeepPink;
+  color: GhostWhite;
+}
+
+button.primary:focus,
+button.primary:hover {
+  background: HotPink;
+  /* color: DeepPink; */
+}
+
+button.secondary {
+  box-shadow: none;
+  background: transparent;
+}
+
+button.secondary:focus,
+button.secondary:hover {
+  background: rgba(255, 20, 147, 0.2);
+  color: DeepPink;
+}
+
 .buttons {
   display: flex;
 }
 
 .buttons button {
-  margin: 16px;
+  margin: 16px 4px;
 }
 
 /* Fieldset */
@@ -163,7 +185,7 @@ input[type="number"]:read-only {
 }
 
 .toggle label:hover input:not(:checked) + span {
-  background: rgba(255, 105, 180, 0.25);
+  background: rgba(255, 20, 147, 0.2);
 }
 
 .toggle input:checked + span {
