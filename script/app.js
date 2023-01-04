@@ -228,8 +228,8 @@ variantButton.addEventListener("click", () => {
   // Create first randomized graphics
   randomize();
 
-  // Call randomize function every 1 second
-  setInterval(randomize, 200);
+  // Call randomize function every .5 seconds
+  setInterval(randomize, 500);
 })();
 
 // Show icons
