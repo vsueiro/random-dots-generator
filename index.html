@@ -60,40 +60,37 @@
         </div>
 
         <style>
-          .main-container {
-            max-width: 600px;
-            margin: 0 auto;
-            border: solid 10px green;
-            padding: 10px;
-            margin-top: 40px;
+          .sticky-container {
+            position: relative;
+            width: calc(100% - 96px);
+            max-width: 1280px;
+            margin: 48px auto;
+            background: RebeccaPurple;
           }
-          .main-container * {
-            padding: 10px;
-            background: #aaa;
-            border: dashed 5px #000;
-          }
-          .main-container * + * {
-            margin-top: 20px;
-          }
-          .main-header {
-            height: 50px;
-            background: #aaa;
-            border-color: red;
-          }
-          .main-content {
-            min-height: 1000px;
-          }
-          .main-header {
+          .sticky-element {
             position: -webkit-sticky;
             position: sticky;
+            height: 50vh;
+            background: Indigo;
+            color: GhostWhite;
+            width: 304px;
             top: 0;
+            z-index: 1;
+          }
+          .scrolling-content {
+            position: relative;
+            margin-top: -50vh;
+            top: 0;
+            left: 304px;
+            background: Lavender;
+            width: calc(100% - 304px);
+            min-height: 1000px;
           }
         </style>
 
-        <div class="main-container">
-          <div class="main-header">HEADER</div>
-          <div class="main-content">MAIN CONTENT</div>
-          <div class="main-footer">FOOTER</div>
+        <div class="sticky-container">
+          <div class="sticky-element">HEADER</div>
+          <div class="scrolling-content">MAIN CONTENT</div>
         </div>
 
         <section>
