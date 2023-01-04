@@ -74,8 +74,6 @@ function redraw() {
   // Get current form values
   const options = getOptions(form);
 
-  console.log(options.width);
-
   // Recreate dots with new dimensions
   dots.redraw(options);
 
