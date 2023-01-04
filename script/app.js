@@ -102,11 +102,11 @@ form.addEventListener("input", () => {
     form.querySelector('[name="width"]').readOnly = false;
   }
 
-  // Disable margin input if prevent overlap is off
-  if (options.preventOverlap) {
-    form.querySelector('[name="margin"]').readOnly = false;
-  } else {
+  // Disable margin input if overlap is on
+  if (options.overlap) {
     form.querySelector('[name="margin"]').readOnly = true;
+  } else {
+    form.querySelector('[name="margin"]').readOnly = false;
   }
 
   // Update dots
