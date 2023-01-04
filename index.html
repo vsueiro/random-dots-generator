@@ -58,6 +58,44 @@
             dots is too big.
           </p>
         </div>
+
+        <style>
+          .main-container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: solid 10px green;
+            padding: 10px;
+            margin-top: 40px;
+          }
+          .main-container * {
+            padding: 10px;
+            background: #aaa;
+            border: dashed 5px #000;
+          }
+          .main-container * + * {
+            margin-top: 20px;
+          }
+          .main-header {
+            height: 50px;
+            background: #aaa;
+            border-color: red;
+          }
+          .main-content {
+            min-height: 1000px;
+          }
+          .main-header {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+          }
+        </style>
+
+        <div class="main-container">
+          <div class="main-header">HEADER</div>
+          <div class="main-content">MAIN CONTENT</div>
+          <div class="main-footer">FOOTER</div>
+        </div>
+
         <section>
           <h2>Play with it</h2>
           <div id="playground">
