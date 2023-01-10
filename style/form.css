@@ -108,6 +108,7 @@ label {
   user-select: none;
   display: flex;
   align-items: center;
+  width: fit-content;
 }
 
 label span {
