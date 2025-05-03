@@ -23,9 +23,9 @@
     display: none;
   }
   #playground #tool {
-    height: 50vh;
     background: Lavender;
     color: Indigo;
+    height: 50vh;
   }
   #mobile-warning .feather {
     color: Tomato;
@@ -34,13 +34,30 @@
     display: none;
   }
   #playground #tool #mobile-warning {
-    width: 100%;
-    height: 100%;
-    padding: 24px;
+    align-items: center;
     display: flex;
     flex-direction: column;
+    height: 100%;
     justify-content: center;
-    align-items: center;
+    padding: 24px;
     text-align: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 575px) {
+  aside ul li {
+    max-width: 100%;
+    min-width: 0%;
+    width: calc(100% - 48px);
+  }
+}
+
+@media (max-width: 339px) {
+  .sticky-container {
+    width: calc(100% - 24px);
+  }
+  aside ul li {
+    width: 100%;
   }
 }
