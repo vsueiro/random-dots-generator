@@ -1,463 +1,346 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Random Dots Generator</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="style/app.css" />
+<head>
+  <meta charset="utf-8" />
+  <title>Random Dots Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="https://unpkg.com/feather-icons" defer></script>
-    <script src="script/Dots.js" defer></script>
-    <script src="script/app.js" defer></script>
+  <link rel="stylesheet" href="style/app.css" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
-    <link rel="manifest" href="site.webmanifest" />
-  </head>
-  <body>
-    <div id="app">
-      <main>
-        <header class="contain">
-          <div
-            class="Sample"
-            title="Animated and colorful graphic displays 100 circles, 10 of which are highlighted"
-            style="width: 120px; height: 120px"
-          ></div>
+  <script src="https://unpkg.com/feather-icons" defer></script>
+  <script src="script/Dots.js" defer></script>
+  <script src="script/app.js" defer></script>
 
-          <h1>Random Dots <span>Generator</span></h1>
-          <p class="lead">
-            Create an image with hundreds of tiny circles
-            <span class="no-break">(with no overlaps!)</span>
-          </p>
-        </header>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+  <link rel="manifest" href="site.webmanifest" />
+</head>
 
-        <div class="contain">
-          <p>
-            In data visualization, sometimes we want to represent big numbers as
-            dots on the screen.
-          </p>
-          <p>
-            In that case, it’s important that all dots are visible. That’s why
-            this tool prevents circles from overlapping by default.
-          </p>
-          <p>
-            But what if we want to highlight some of those dots? Well… you can
-            set an amount of circles to be highlighted, with custom colors and
-            sizes.
-          </p>
-          <p>
-            For instance, if you want to represent that 10% of something, simply
-            set the amount of dots as 100 and the amount of highlights as 10.
-            <span aria-hidden="true">
-              You should get results like that image above.
-            </span>
-          </p>
-          <p>
-            You can download your creation as a vector (SVG) file and further
-            edit it using
-            <a href="https://www.figma.com/" target="_blank">Figma</a> or
-            <a href="https://www.adobe.com/products/illustrator" target="_blank"
-              >Adobe Illustrator</a
-            >. If you prefer, you can also download it as raster (PNG) file.
-          </p>
-          <p>
-            I created this tool as a basis for my data visualization work, but
-            it can also be used for artistic illustrations. So feel free to mess
-            around!
-          </p>
-          <p>
-            Just keep in mind that your browser might crash if the amount of
-            dots is too big.
-          </p>
-        </div>
+<body>
+  <div id="app">
+    <main>
+      <header class="contain">
+        <div class="Sample" title="Animated and colorful graphic displays 100 circles, 10 of which are highlighted"
+          style="width: 120px; height: 120px"></div>
 
-        <section id="playground">
-          <h2>Playground</h2>
+        <h1>Random Dots <span>Generator</span></h1>
+        <p class="lead">
+          Create an image with hundreds of tiny circles
+          <span class="no-break">(with no overlaps!)</span>
+        </p>
+      </header>
 
-          <div id="tool" class="sticky-container">
-            <div id="mobile-warning">
-              <p><i data-feather="alert-triangle"></i></p>
-              <p>
-                Sorry! This tool only works on bigger screens, like laptops or
-                tablets
-              </p>
-            </div>
-            <div class="sticky-element">
-              <div id="controls">
-                <form>
-                  <fieldset>
-                    <legend>Canvas</legend>
-                    <div class="label-container">
-                      <label>
-                        <span>Width</span>
-                        <input
-                          type="number"
-                          name="width"
-                          value="640"
-                          min="0"
-                          required
-                        />
-                      </label>
-                      <label>
-                        <span>Height</span>
-                        <input
-                          type="number"
-                          name="height"
-                          value="360"
-                          min="0"
-                          required
-                        />
-                      </label>
-                      <label>
-                        <span>Padding</span>
-                        <input
-                          type="number"
-                          name="padding"
-                          value="24"
-                          min="0"
-                          required
-                        />
-                      </label>
-                      <label>
-                        <span>Color</span>
-                        <input
-                          type="color"
-                          name="background"
-                          value="#F8F8FF"
-                          required
-                        />
-                        <div
-                          class="color-picker"
-                          style="background: #f8f8ff"
-                        ></div>
-                      </label>
-                      <label>
-                        <span>Opacity</span>
-                        <input
-                          type="range"
-                          name="backgroundOpacity"
-                          min="0"
-                          max="1"
-                          step="0.1"
-                          value="1"
-                          required
-                        />
-                      </label>
-                      <fieldset class="screen-reader-only">
-                        <legend>Shape</legend>
-                        <div class="label-container">
-                          <div class="toggle">
-                            <label>
-                              <input
-                                type="radio"
-                                name="shape"
-                                value="rectangle"
-                                checked
-                              />
-                              <span>
-                                <i data-feather="square"></i>
-                                <span>Rectangle</span>
-                              </span>
-                            </label>
-                            <label>
-                              <input type="radio" name="shape" value="circle" />
-                              <span>
-                                <i data-feather="circle"></i>
-                                <span>Circle</span>
-                              </span>
-                            </label>
-                          </div>
+      <div class="contain">
+        <p>
+          In data visualization, sometimes we want to represent big numbers as
+          dots on the screen.
+        </p>
+        <p>
+          In that case, it’s important that all dots are visible. That’s why
+          this tool prevents circles from overlapping by default.
+        </p>
+        <p>
+          But what if we want to highlight some of those dots? Well… you can
+          set an amount of circles to be highlighted, with custom colors and
+          sizes.
+        </p>
+        <p>
+          For instance, if you want to represent that 10% of something, simply
+          set the amount of dots as 100 and the amount of highlights as 10.
+          <span aria-hidden="true">
+            You should get results like that image above.
+          </span>
+        </p>
+        <p>
+          You can download your creation as a vector (SVG) file and further
+          edit it using
+          <a href="https://www.figma.com/" target="_blank">Figma</a> or
+          <a href="https://www.adobe.com/products/illustrator" target="_blank">Adobe Illustrator</a>. If you prefer, you
+          can also download it as raster (PNG) file.
+        </p>
+        <p>
+          I created this tool as a basis for my data visualization work, but
+          it can also be used for artistic illustrations. So feel free to mess
+          around!
+        </p>
+        <p>
+          Just keep in mind that your browser might crash if the amount of
+          dots is too big.
+        </p>
+      </div>
+
+      <section id="playground">
+        <h2>Playground</h2>
+
+        <div id="tool" class="sticky-container">
+          <div id="mobile-warning">
+            <p><i data-feather="alert-triangle"></i></p>
+            <p>
+              Sorry! This tool only works on bigger screens, like laptops or
+              tablets
+            </p>
+          </div>
+          <div class="sticky-element">
+            <div id="controls">
+              <form>
+                <fieldset>
+                  <legend>Canvas</legend>
+                  <div class="label-container">
+                    <label>
+                      <span>Width</span>
+                      <input type="number" name="width" value="640" min="0" required />
+                    </label>
+                    <label>
+                      <span>Height</span>
+                      <input type="number" name="height" value="360" min="0" required />
+                    </label>
+                    <label>
+                      <span>Padding</span>
+                      <input type="number" name="padding" value="24" min="0" required />
+                    </label>
+                    <label>
+                      <span>Color</span>
+                      <input type="color" name="background" value="#F8F8FF" required />
+                      <div class="color-picker" style="background: #f8f8ff"></div>
+                    </label>
+                    <label>
+                      <span>Opacity</span>
+                      <input type="range" name="backgroundOpacity" min="0" max="1" step="0.1" value="1" required />
+                    </label>
+                    <fieldset class="screen-reader-only">
+                      <legend>Shape</legend>
+                      <div class="label-container">
+                        <div class="toggle">
+                          <label>
+                            <input type="radio" name="shape" value="rectangle" checked />
+                            <span>
+                              <i data-feather="square"></i>
+                              <span>Rectangle</span>
+                            </span>
+                          </label>
+                          <label>
+                            <input type="radio" name="shape" value="circle" />
+                            <span>
+                              <i data-feather="circle"></i>
+                              <span>Circle</span>
+                            </span>
+                          </label>
                         </div>
-                      </fieldset>
-                    </div>
-                  </fieldset>
-                  <fieldset>
-                    <legend>Dots</legend>
-                    <div class="label-container">
-                      <label>
-                        <span>Amount</span>
-                        <input
-                          type="number"
-                          name="amount"
-                          value="1000"
-                          min="1"
-                          required
-                        />
-                      </label>
-                      <label>
-                        <span>Radius</span>
-                        <input
-                          type="number"
-                          name="radius"
-                          value="4"
-                          min="0"
-                          required
-                        />
-                      </label>
-                      <label>
-                        <span>Margin</span>
-                        <input
-                          type="number"
-                          name="margin"
-                          value="2"
-                          min="0"
-                          required
-                        />
-                      </label>
-                      <label>
-                        <span>Color</span>
-                        <input
-                          type="color"
-                          name="foreground"
-                          value="#B0E0E6"
-                          required
-                        />
-                        <div
-                          class="color-picker"
-                          style="background: #b0e0e6"
-                        ></div>
-                      </label>
-                      <label>
-                        <span>Opacity</span>
-                        <input
-                          type="range"
-                          name="foregroundOpacity"
-                          min="0"
-                          max="1"
-                          step="0.1"
-                          value="1"
-                          required
-                        />
-                      </label>
-                      <label>
-                        <span>Overlaps</span>
-                        <input type="checkbox" name="overlap" />
-                        <div class="switch"></div>
-                      </label>
-                    </div>
-                  </fieldset>
-                  <fieldset>
-                    <legend>Highlights</legend>
-                    <div class="label-container">
-                      <label>
-                        <span>Amount</span>
-                        <input
-                          type="number"
-                          name="highlightAmount"
-                          value="10"
-                          min="0"
-                          required
-                        />
-                      </label>
-                      <label>
-                        <span>Radius</span>
-                        <input
-                          type="number"
-                          name="highlightRadius"
-                          value="6"
-                          min="0"
-                          required
-                        />
-                      </label>
-                      <label>
-                        <span>Color</span>
-                        <input
-                          type="color"
-                          name="highlightForeground"
-                          value="#FF1493"
-                          required
-                        />
-                        <div
-                          class="color-picker"
-                          style="background: #ff1493"
-                        ></div>
-                      </label>
-                      <label>
-                        <span>Opacity</span>
-                        <input
-                          type="range"
-                          name="highlightForegroundOpacity"
-                          min="0"
-                          max="1"
-                          step="0.1"
-                          value="1"
-                          required
-                        />
-                      </label>
-                    </div>
-                  </fieldset>
-                  <fieldset>
-                    <legend>Renderer</legend>
-                    <div class="label-container">
-                      <div class="toggle">
-                        <label>
-                          <input
-                            type="radio"
-                            name="renderer"
-                            value="svg"
-                            checked
-                          />
-                          <span>SVG</span>
-                        </label>
-                        <label>
-                          <input type="radio" name="renderer" value="canvas" />
-                          <span>PNG</span>
-                        </label>
                       </div>
+                    </fieldset>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <legend>Dots</legend>
+                  <div class="label-container">
+                    <label>
+                      <span>Amount</span>
+                      <input type="number" name="amount" value="1000" min="1" required />
+                    </label>
+                    <label>
+                      <span>Radius</span>
+                      <input type="number" name="radius" value="4" min="0" required />
+                    </label>
+                    <label>
+                      <span>Margin</span>
+                      <input type="number" name="margin" value="2" min="0" required />
+                    </label>
+                    <label>
+                      <span>Color</span>
+                      <input type="color" name="foreground" value="#B0E0E6" required />
+                      <div class="color-picker" style="background: #b0e0e6"></div>
+                    </label>
+                    <label>
+                      <span>Opacity</span>
+                      <input type="range" name="foregroundOpacity" min="0" max="1" step="0.1" value="1" required />
+                    </label>
+                    <label>
+                      <span>Overlaps</span>
+                      <input type="checkbox" name="overlap" />
+                      <div class="switch"></div>
+                    </label>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <legend>Highlights</legend>
+                  <div class="label-container">
+                    <label>
+                      <span>Amount</span>
+                      <input type="number" name="highlightAmount" value="10" min="0" required />
+                    </label>
+                    <label>
+                      <span>Radius</span>
+                      <input type="number" name="highlightRadius" value="6" min="0" required />
+                    </label>
+                    <label>
+                      <span>Color</span>
+                      <input type="color" name="highlightForeground" value="#FF1493" required />
+                      <div class="color-picker" style="background: #ff1493"></div>
+                    </label>
+                    <label>
+                      <span>Opacity</span>
+                      <input type="range" name="highlightForegroundOpacity" min="0" max="1" step="0.1" value="1"
+                        required />
+                    </label>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <legend>Renderer</legend>
+                  <div class="label-container">
+                    <div class="toggle">
+                      <label>
+                        <input type="radio" name="renderer" value="svg" checked />
+                        <span>SVG</span>
+                      </label>
+                      <label>
+                        <input type="radio" name="renderer" value="canvas" />
+                        <span>PNG</span>
+                      </label>
                     </div>
-                  </fieldset>
-                </form>
-              </div>
-              <div id="bar-top">
-                <p class="error">
-                  <i data-feather="alert-triangle"></i>
-                  <span class="error-message"></span>
-                </p>
-                <div class="buttons">
-                  <button class="variant secondary">
-                    <i data-feather="refresh-cw"></i>
-                    <span>Create Variant</span>
-                  </button>
-                  <button class="download primary">
-                    <i data-feather="download"></i>
-                    <span>Download</span>
-                  </button>
-                </div>
-              </div>
+                  </div>
+                </fieldset>
+              </form>
             </div>
-            <div class="scrolling-content">
-              <div class="Dots"></div>
+            <div id="bar-top">
+              <p class="error">
+                <i data-feather="alert-triangle"></i>
+                <span class="error-message"></span>
+              </p>
+              <div class="buttons">
+                <button class="variant secondary">
+                  <i data-feather="refresh-cw"></i>
+                  <span>Create Variant</span>
+                </button>
+                <button class="download primary">
+                  <i data-feather="download"></i>
+                  <span>Download</span>
+                </button>
+              </div>
             </div>
           </div>
-        </section>
-      </main>
-
-      <aside>
-        <div class="contain">
-          <h2>Use Cases</h2>
-          <p class="lead">Get inspired by a few real-world examples</p>
+          <div class="scrolling-content">
+            <div class="Dots"></div>
+          </div>
         </div>
+      </section>
+    </main>
 
-        <div class="ul-wrapper contain">
-          <ul>
-            <li>
-              <figure>
-                <a href="https://youtu.be/PWmy2KlGlrc" target="_blank">
-                  <img src="samples/ufscar.gif" />
-                </a>
-                <figcaption>
-                  <p>
-                    Slides from my talk about data visualization at
-                    <i lang="pt-br">Festival Comunicação Científica</i>,
-                    organized by <i lang="pt-br">Meio de Cultura UFSCar</i>.
-                    <span class="author"
-                      >By
-                      <a href="https://vsueiro.com/">Vinicius Sueiro</a></span
-                    >
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-            <li>
-              <figure>
-                <a
-                  href="https://www.behance.net/gallery/99114047/Population-Density"
-                  target="_blank"
-                >
-                  <img src="samples/population.jpg" />
-                </a>
-                <figcaption>
-                  <p>
-                    Artwork for Visual Data, the column on
-                    <i lang="it">La Lettura</i>, the cultural supplement of
-                    <i lang="it">Corriere Della Sera</i>.
-                    <span class="author">
-                      By
-                      <a
-                        href="https://www.behance.net/FedericaFragapane"
-                        target="_blank"
-                        >Federica Fragapane</a
-                      >
-                      &
-                      <a href="https://twitter.com/paolocorti_" target="_blank"
-                        >Paolo Corti</a
-                      >
-                    </span>
-                  </p>
-                  <small>
-                    <em>Not</em> created using this tool. Showcased only for
-                    inspiration.
-                  </small>
-                </figcaption>
-              </figure>
-            </li>
-            <li>
-              <figure>
-                <a
-                  href="https://www.otempo.com.br/cidades/tragedia-de-brumadinho-oito-estrategias-de-busca-nortearam-os-bombeiros-1.2801259"
-                  target="_blank"
-                >
-                  <img src="samples/underground.png" />
-                </a>
-                <figcaption>
-                  <p>
-                    How many bodies or body parts were discovered underground
-                    after
-                    <i lang="pt-br">Brumadinho</i> dam collapse.
-                    <span class="author">
-                      By
-                      <a
-                        href="https://www.linkedin.com/in/manuel-marçal-05129914a/"
-                        target="_blank"
-                        >Manuel Marçal</a
-                      >,
-                      <a
-                        href="https://www.linkedin.com/in/marcos-carreiro-26413756/"
-                        target="_blank"
-                        >Marcos Carreiro</a
-                      >
-                      &
-                      <a
-                        href="https://www.linkedin.com/in/renato-crozatti/"
-                        target="_blank"
-                        >Renato Crozatti</a
-                      >
-                    </span>
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-          </ul>
-        </div>
+    <aside>
+      <div class="contain">
+        <h2>Use Cases</h2>
+        <p class="lead">Get inspired by a few real-world examples</p>
+      </div>
 
-        <div class="contain">
-          <p>
-            <a
-              href="mailto:&#104;&#105;&#64;&#118;&#115;&#117;&#101;&#105;&#114;&#111;&#46;&#99;&#111;&#109;"
-              >Submit your project</a
-            >
-            to see it showcased here!
-          </p>
-        </div>
-      </aside>
+      <div class="ul-wrapper contain">
+        <ul>
+          <li>
+            <figure>
+              <a href="https://store.nytimes.com/collections/the-new-york-times-for-kids/products/for-kids-the-huge-issue-march-2025"
+                target="_blank">
+                <img src="samples/the-new-york-times-for-kids-1-billion.jpg"
+                  style="object-fit: cover; object-position: center top; aspect-ratio: 16/9;" />
+              </a>
+              <figcaption>
+                <p>
+                  Printed infographic by <a href="https://store.nytimes.com/collections/the-new-york-times-for-kids"
+                    target="_blank">The New
+                    York Times for Kids</a> about how big
+                  $1 billion actually is, featuring 100,000 dots inside a circle.
+                  <span class="author">By
+                    <a href="https://fdidini.com/">Fernanda Didini</a></span>
+                </p>
+              </figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <a href="https://youtu.be/PWmy2KlGlrc" target="_blank">
+                <img src="samples/ufscar.gif" />
+              </a>
+              <figcaption>
+                <p>
+                  Slides from my talk about data visualization at
+                  <i lang="pt-br">Festival Comunicação Científica</i>,
+                  organized by <i lang="pt-br">Meio de Cultura UFSCar</i>.
+                  <span class="author">By
+                    <a href="https://vsueiro.com/">Vinicius Sueiro</a></span>
+                </p>
+              </figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <a href="https://www.behance.net/gallery/99114047/Population-Density" target="_blank">
+                <img src="samples/population.jpg" />
+              </a>
+              <figcaption>
+                <p>
+                  Artwork for Visual Data, the column on
+                  <i lang="it">La Lettura</i>, the cultural supplement of
+                  <i lang="it">Corriere Della Sera</i>.
+                  <span class="author">
+                    By
+                    <a href="https://www.behance.net/FedericaFragapane" target="_blank">Federica Fragapane</a>
+                    &
+                    <a href="https://twitter.com/paolocorti_" target="_blank">Paolo Corti</a>
+                  </span>
+                </p>
+                <small>
+                  <em>Not</em> created using this tool. Showcased only for
+                  inspiration.
+                </small>
+              </figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure>
+              <a href="https://www.otempo.com.br/cidades/tragedia-de-brumadinho-oito-estrategias-de-busca-nortearam-os-bombeiros-1.2801259"
+                target="_blank">
+                <img src="samples/underground.png" />
+              </a>
+              <figcaption>
+                <p>
+                  How many bodies or body parts were discovered underground
+                  after
+                  <i lang="pt-br">Brumadinho</i> dam collapse.
+                  <span class="author">
+                    By
+                    <a href="https://www.linkedin.com/in/manuel-marçal-05129914a/" target="_blank">Manuel Marçal</a>,
+                    <a href="https://www.linkedin.com/in/marcos-carreiro-26413756/" target="_blank">Marcos Carreiro</a>
+                    &
+                    <a href="https://www.linkedin.com/in/renato-crozatti/" target="_blank">Renato Crozatti</a>
+                  </span>
+                </p>
+              </figcaption>
+            </figure>
+          </li>
+        </ul>
+      </div>
 
-      <footer>
+      <div class="contain">
         <p>
-          The Random Dots Generator is an open-source tool created by
-          <a href="https://vsueiro.com">Vinicius Sueiro</a> as a side project.
-          Icons by
-          <a href="https://feathericons.com/" target="_blank">Feather</a>.
+          <a href="mailto:&#104;&#105;&#64;&#118;&#115;&#117;&#101;&#105;&#114;&#111;&#46;&#99;&#111;&#109;">Submit your
+            project</a>
+          to see it showcased here!
         </p>
-        <a
-          href="https://github.com/vsueiro/random-dots-generator"
-          target="_blank"
-        >
-          <i data-feather="github"></i>
-          <span class="screen-reader-only">GitHub</span>
-        </a>
-      </footer>
-    </div>
-  </body>
+      </div>
+    </aside>
+
+    <footer>
+      <p>
+        The Random Dots Generator is an open-source tool created by
+        <a href="https://vsueiro.com">Vinicius Sueiro</a> as a side project.
+        Icons by
+        <a href="https://feathericons.com/" target="_blank">Feather</a>.
+      </p>
+      <a href="https://github.com/vsueiro/random-dots-generator" target="_blank">
+        <i data-feather="github"></i>
+        <span class="screen-reader-only">GitHub</span>
+      </a>
+    </footer>
+  </div>
+</body>
+
 </html>
