@@ -2,13 +2,13 @@
 
 .Dots {
   height: fit-content;
-  resize: both;
   overflow: hidden;
+  resize: both;
 }
 
 .Dots[data-shape="circle"] {
-  resize: vertical;
   aspect-ratio: 1;
+  resize: vertical;
 }
 
 .Dots svg,

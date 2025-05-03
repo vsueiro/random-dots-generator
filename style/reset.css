@@ -10,9 +10,10 @@ ul {
 }
 
 img,
-svg {
-  max-width: 100%;
+svg,
+video {
   display: block;
+  max-width: 100%;
 }
 
 /* Input Range */

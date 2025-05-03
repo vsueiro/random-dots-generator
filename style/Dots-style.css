@@ -1,35 +1,35 @@
 /* Style */
 
 .Dots {
-  position: relative;
-  margin: 0 auto;
-  box-shadow: 0 0 0 2px transparent;
-  transition: box-shadow 0.4s;
   border-radius: 4px;
+  box-shadow: 0 0 0 2px transparent;
+  margin: 0 auto;
+  position: relative;
+  transition: box-shadow 0.4s;
 }
 
 .Dots:hover {
   box-shadow: 0 0 0 2px DeepPink;
 }
 .Dots[data-shape="circle"] {
-  box-shadow: 0 0 0 2px DeepPink;
   border-radius: 50% 50% 4px 50%;
+  box-shadow: 0 0 0 2px DeepPink;
 }
 
 .Dots::after {
+  background: DeepPink;
+  bottom: -16px;
   content: "";
   display: block;
+  height: 32px;
+  opacity: 0;
+  pointer-events: none;
   position: absolute;
   right: -16px;
-  bottom: -16px;
-  width: 32px;
-  height: 32px;
   transform: rotate(45deg);
-  z-index: 1;
-  pointer-events: none;
-  background: DeepPink;
-  opacity: 0;
   transition: opacity 0.4s;
+  width: 32px;
+  z-index: 1;
 }
 
 .Dots:hover::after,
