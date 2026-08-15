@@ -86,8 +86,7 @@ function redraw() {
   }
 }
 
-// Update drawing when form changes
-form.addEventListener("input", () => {
+function handleFormInteractions() {
   // Allow wrapper dimensions to update when form values change
   element.style = "";
 
@@ -107,8 +106,21 @@ form.addEventListener("input", () => {
     form.querySelector('[name="margin"]').readOnly = false;
   }
 
+  // Reset highlightRadius if highlightPosition is not “randomly”
+  if (options.highlightPosition === "randomly") {
+    form.querySelector('[name="highlightRadius"]').readOnly = false;
+  } else {
+    form.querySelector('[name="highlightRadius"]').value = options.radius;
+    form.querySelector('[name="highlightRadius"]').readOnly = true;
+  }
+
   // Update dots
   redraw();
+}
+
+// Update drawing when form changes
+form.addEventListener("input", () => {
+  handleFormInteractions();
 });
 
 // Update form inputs when wrapper is resized

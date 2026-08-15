@@ -86,7 +86,7 @@ fieldset {
 }
 
 fieldset + fieldset {
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 /* Label */
@@ -153,6 +153,25 @@ input[type="number"]:read-only {
   pointer-events: none;
 }
 
+/* Select */
+
+select {
+  background: RebeccaPurple;
+  border: none;
+  border-radius: 4px;
+  color: inherit;
+  font-family: inherit;
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  height: 28px;
+  padding: 4px 8px;
+  width: 160px;
+}
+
+select:focus {
+  outline: 2px solid Turquoise;
+}
+
 /* Toggle */
 
 .toggle {
@@ -183,7 +202,7 @@ input[type="number"]:read-only {
   align-items: center;
   color: GhostWhite;
   display: flex;
-  padding: 6px 8px;
+  padding: 4px 8px;
 }
 
 .toggle label:hover input:not(:checked) + span {

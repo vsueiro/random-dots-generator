@@ -1,7 +1,7 @@
 // TODO: When changing only color, do not redraw whole chart, only update existing dots and background
 
 class Dot {
-  constructor(instance) {
+  constructor(instance, highlight = false) {
     // Gets access to all properties of the Dots class
     this.instance = instance;
 
@@ -9,19 +9,19 @@ class Dot {
     this.x = this.random(this.min.x, this.max.x);
     this.y = this.random(this.min.y, this.max.y);
 
-    // Define properties of highlighted dot
-    if (this.isHighlight) {
-      this.radius = this.instance.highlightRadius;
-      this.foreground = this.instance.highlightForeground;
-      this.foregroundOpacity = this.instance.highlightForegroundOpacity;
-    }
+    this.highlight = highlight;
+  }
 
-    // Define properties of regular dot
-    else {
-      this.radius = this.instance.radius;
-      this.foreground = this.instance.foreground;
-      this.foregroundOpacity = this.instance.foregroundOpacity;
-    }
+  get radius() {
+    return this.highlight ? this.instance.highlightRadius : this.instance.radius;
+  }
+
+  get foreground() {
+    return this.highlight ? this.instance.highlightForeground : this.instance.foreground;
+  }
+
+  get foregroundOpacity() {
+    return this.highlight ? this.instance.highlightForegroundOpacity : this.instance.foregroundOpacity;
   }
 
   // Calculate lower bounds
@@ -49,14 +49,6 @@ class Dot {
       fill="${this.foreground}"
       fill-opacity="${this.foregroundOpacity}"
     ></circle>`;
-  }
-
-  // Checks whether this dot should be highlighted
-  get isHighlight() {
-    const current = this.instance.count + 1;
-    const limit = this.instance.amount - this.instance.highlightAmount;
-
-    return current > limit;
   }
 
   // Draw dot on <canvas> element
@@ -90,16 +82,17 @@ class Dots {
       background: "#F8F8FF",
       backgroundOpacity: 1,
       shape: "rectangle",
-      amount: 1000,
+      amount: 10,
       radius: 4,
       margin: 2,
       foreground: "#B0E0E6",
       foregroundOpacity: 1,
       overlap: false,
-      highlightAmount: 0,
+      highlightAmount: 1,
       highlightRadius: 4,
       highlightForeground: "#FF1493",
       highlightForegroundOpacity: 1,
+      highlightPosition: "randomly"
     };
 
     this.setOptions(options);
@@ -291,8 +284,12 @@ class Dots {
 
     // Create dots until they reach the defined amount
     for (let i = 0; i < this.amount; i++) {
+
+      // If highlightPosition is random, pre-define whether dot is a highlight or not
+      const highlight = this.highlightPosition === "randomly" && i < this.highlightAmount;
+
       // Create new random dot
-      let dot = new Dot(this);
+      let dot = new Dot(this, highlight);
 
       // If frame is a circle AND overlaps are not allowed
       if (this.shape === "circle" && !this.overlap) {
@@ -301,7 +298,7 @@ class Dots {
 
         // Keep generating random dots until one of them doesn’t overlap AND is inside the circle
         while (this.outside(dot) || this.overlaps(dot)) {
-          dot = new Dot(this);
+          dot = new Dot(this, highlight);
           tries++;
 
           if (tries > this.triesLimit) {
@@ -315,7 +312,7 @@ class Dots {
         if (this.shape === "circle") {
           // Keep generating random dots until one of them is inside the circle
           while (this.outside(dot)) {
-            dot = new Dot(this);
+            dot = new Dot(this, highlight);
           }
         }
 
@@ -326,7 +323,7 @@ class Dots {
 
           // Keep generating random dots until one of them doesn’t overlap
           while (this.overlaps(dot)) {
-            dot = new Dot(this);
+            dot = new Dot(this, highlight);
             tries++;
 
             if (tries > this.triesLimit) {
@@ -345,6 +342,35 @@ class Dots {
 
       // Add new dot to list of existing dots
       this.list.push(dot);
+    }
+
+    // NOTE: Only randomly positioned dots should/could have different radius from main dot
+
+    // TODO: Sort list based on highlightPosition to define which dots are highlights (last N, to be drawn on top)
+    if (this.highlightPosition !== "randomly") {
+
+      // Sort dots so that smaller x positions are first
+      if (this.highlightPosition === "left") {
+        this.list.sort( (a, b) => {
+          return b.x - a.x
+        })
+      }
+      // Sort dots so that smaller y positions are first
+      else if (this.highlightPosition === "top") {
+        this.list.sort( (a, b) => {
+          return b.y - a.y
+        })
+      }
+
+      // Apply highlight to last dots in sorted list (to ensure they are drawn on top)
+      for (let i = 1; i <= this.highlightAmount; i++) {
+        if (i > this.list.length) break
+        this.list.at(-i).highlight = true;
+      }
+    }
+
+    // For each dot in my list
+    this.list.forEach((dot, index) => {
 
       // <svg>
       if (this.renderer === "svg") {
@@ -357,7 +383,7 @@ class Dots {
         // Draw dot on canvas
         dot.draw(this.context);
       }
-    }
+    })
   }
 
   draw() {
