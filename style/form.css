@@ -106,7 +106,7 @@ legend {
 label {
   align-items: center;
   display: flex;
-  margin: 2px 0 2px 32px;
+  margin: 2px 0 2px 24px;
   user-select: none;
   white-space: nowrap;
   width: fit-content;
@@ -133,7 +133,7 @@ input[type="number"] {
   font-variant-numeric: tabular-nums;
   height: 28px;
   padding: 4px 8px;
-  width: 160px;
+  width: 168px;
 }
 
 input[type="number"]:focus {
@@ -165,7 +165,7 @@ select {
   font-variant-numeric: tabular-nums;
   height: 28px;
   padding: 4px 8px;
-  width: 160px;
+  width: 168px;
 }
 
 select:focus {
@@ -233,7 +233,7 @@ input[type="color"]:focus + .color-picker {
 input[type="range"] {
   border-radius: 4px;
   height: 28px;
-  width: 160px;
+  width: 168px;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
