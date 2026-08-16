@@ -56,12 +56,13 @@ function showCount() {
   const error = document.querySelector(".error");
   const message = document.querySelector(".error-message");
 
+  // Couldn’t fit all dots in canvas without overlap.
   if (dots.count < dots.amount) {
     message.innerHTML = `
-      Too many dots to prevent overlap.
-      <span>
-        Only ${dots.count} created.
-      </span>
+      Reduce amount of dots or make canvas bigger.
+      <small>
+        Only ${dots.count} dots created
+      </small>
     `;
     error.style.visibility = "visible";
   } else {

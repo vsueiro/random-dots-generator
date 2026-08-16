@@ -9,7 +9,7 @@
     width: calc(100% - 32px);
   }
 
-  .error-message span {
+  .error-message small {
     display: none;
   }
 }

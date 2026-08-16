@@ -238,10 +238,14 @@ footer {
   height: 72px;
   justify-content: space-between;
   left: 304px;
-  padding: 0 16px;
+  padding: 16px 16px;
   position: absolute;
   top: 0;
   width: calc(100% - 304px);
+}
+
+#bar-top svg {
+  flex-shrink: 0;
 }
 
 #controls {
