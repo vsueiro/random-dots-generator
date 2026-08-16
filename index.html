@@ -187,10 +187,30 @@
                     <label>
                       <span>Position</span>
                       <div class="select-wrapper">
+
                         <select name="highlightPosition">
                           <option value="randomly">🔀 Randomly</option>
-                          <option value="left">➡️ From left</option>
-                          <option value="top">⬇️ From top</option>
+                          <optgroup label="□ Linear">
+                            <option value="top">⬆️ Top</option>
+                            <option value="right">➡️ Right</option>
+                            <option value="bottom">⬇️ Bottom</option>
+                            <option value="left">⬅️ Left</option>
+                          </optgroup>
+                          <optgroup label="○ Radial (From Corners)">
+                            <option value="top-left-radial">↖️ Top-Left Radial</option>
+                            <option value="top-right-radial">↗️ Top-Right Radial</option>
+                            <option value="bottom-right-radial">↘️ Bottom-Right Radial</option>
+                            <option value="bottom-left-radial">↙️ Bottom-Left Radial</option>
+                          </optgroup>
+                          <optgroup label="○ Radial (From Sides)">
+                            <option value="top-radial">⬆️ Top Radial</option>
+                            <option value="right-radial">➡️ Right Radial</option>
+                            <option value="bottom-radial">⬇️ Bottom Radial</option>
+                            <option value="left-radial">⬅️ Left Radial</option>
+                          </optgroup>
+                          <optgroup label="○ Radial (From Center)">
+                            <option value="center-radial">⏺️ Center Radial</option>
+                          </optgroup> 
                         </select>
                       </div>
                     </label>

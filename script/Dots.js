@@ -105,6 +105,106 @@ class Dots {
     return this.list.length;
   }
 
+  sortBy(highlightPosition) {
+
+    const functions = {}
+
+    // Don’t change order
+    functions["default"] = (a, b) => {
+      return 0;
+    }
+
+    // Smaller y positions are last
+    functions["top"] = (a, b) => {
+      return b.y - a.y
+    }
+
+    // Larger x positions are last
+    functions["right"] = (a, b) => {
+      return a.x - b.x;
+    }
+    
+    // Larger y positions are last
+    functions["bottom"] = (a, b) => {
+      return a.y - b.y;
+    }
+
+    // Smaller x positions are last
+    functions["left"] = (a, b) => {
+      return b.x - a.x;
+    }
+
+    // Closer to center-top left are last
+    functions["top-radial"] = (a, b) => {
+      const x = this.width / 2;
+      const y = 0;
+      return this.distance(x, y, b.x, b.y) - this.distance(x, y, a.x, a.y);
+    }
+
+    // Closer to right-center left are last
+    functions["right-radial"] = (a, b) => {
+      const x = this.width;
+      const y = this.height / 2;
+      return this.distance(x, y, b.x, b.y) - this.distance(x, y, a.x, a.y);
+    }
+
+    // Closer to center-bottom left are last
+    functions["bottom-radial"] = (a, b) => {
+      const x = this.width / 2;
+      const y = this.height;
+      return this.distance(x, y, b.x, b.y) - this.distance(x, y, a.x, a.y);
+    }
+
+    // Closer to left-center left are last
+    functions["left-radial"] = (a, b) => {
+      const x = 0;
+      const y = this.height / 2;
+      return this.distance(x, y, b.x, b.y) - this.distance(x, y, a.x, a.y);
+    }
+
+    // Closer to top left are last
+    functions["top-left-radial"] = (a, b) => {
+      const x = 0;
+      const y = 0;
+      return this.distance(x, y, b.x, b.y) - this.distance(x, y, a.x, a.y);
+    }
+
+    // Closer to top right are last
+    functions["top-right-radial"] = (a, b) => {
+      const x = this.width;
+      const y = 0;
+      return this.distance(x, y, b.x, b.y) - this.distance(x, y, a.x, a.y);
+    }
+
+    // Closer to bottom right are last
+    functions["bottom-right-radial"] = (a, b) => {
+      const x = this.width;
+      const y = this.height;
+      return this.distance(x, y, b.x, b.y) - this.distance(x, y, a.x, a.y);
+    }
+
+    // Closer to bottom left are last
+    functions["bottom-left-radial"] = (a, b) => {
+      const x = 0;
+      const y = this.height;
+      return this.distance(x, y, b.x, b.y) - this.distance(x, y, a.x, a.y);
+    }
+
+    // Closer to center are last
+    functions["center-radial"] = (a, b) => {
+      const x = this.width / 2;
+      const y = this.height / 2;
+      return this.distance(x, y, b.x, b.y) - this.distance(x, y, a.x, a.y);
+    }
+
+    if (highlightPosition in functions) {
+      return functions[highlightPosition];
+    }
+
+    this.warning(`No sorting function defined for ${ highlightPosition}`);
+    return functions["default"];
+  }
+
   setOptions(options) {
     // Get all possible options
     const possibilities = Object.entries(this.possibilities);
@@ -349,18 +449,7 @@ class Dots {
     // TODO: Sort list based on highlightPosition to define which dots are highlights (last N, to be drawn on top)
     if (this.highlightPosition !== "randomly") {
 
-      // Sort dots so that smaller x positions are first
-      if (this.highlightPosition === "left") {
-        this.list.sort( (a, b) => {
-          return b.x - a.x
-        })
-      }
-      // Sort dots so that smaller y positions are first
-      else if (this.highlightPosition === "top") {
-        this.list.sort( (a, b) => {
-          return b.y - a.y
-        })
-      }
+      this.list.sort(this.sortBy(this.highlightPosition))
 
       // Apply highlight to last dots in sorted list (to ensure they are drawn on top)
       for (let i = 1; i <= this.highlightAmount; i++) {
