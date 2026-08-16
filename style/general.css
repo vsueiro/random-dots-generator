@@ -92,6 +92,14 @@ figure {
   flex-direction: column;
 }
 
+mark {
+  padding: 0.05em 0.25em;
+  border-radius: .25em;
+  background-color: color-mix(coral 33%, transparent);
+  color: inherit;
+  vertical-align: baseline;
+}
+
 /* Screen Readers */
 
 .screen-reader-only:not(fieldset):not(:focus):not(:active),
