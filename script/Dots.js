@@ -385,8 +385,8 @@ class Dots {
     // Create dots until they reach the defined amount
     for (let i = 0; i < this.amount; i++) {
 
-      // If highlightPosition is random, pre-define whether dot is a highlight or not
-      const highlight = this.highlightPosition === "randomly" && i < this.highlightAmount;
+      // If highlightPosition is random, pre-define whether dot is a highlight or not (apply to last items)
+      const highlight = this.highlightPosition === "randomly" && i >= this.amount - this.highlightAmount;
 
       // Create new random dot
       let dot = new Dot(this, highlight);
